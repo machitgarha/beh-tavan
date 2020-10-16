@@ -8,12 +8,12 @@ namespace BehTavan
     /**
      * Powers an integer to an integer, using a normal algorithm.
      */
-    Int64 power(Int64 base, Int64 exponent);
+    Int64 power(Int32 base, Int32 exponent);
 
     /**
      * Powers an integer to an integer, using the optimized method.
      */
-    Int64 powerOptimized(Int64 base, Int64 exponent);
+    Int64 powerOptimized(Int32 base, Int32 exponent);
 }
 
 #endif // BEH_TAVAN_POWER_HPP
