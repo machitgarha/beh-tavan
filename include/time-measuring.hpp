@@ -7,15 +7,13 @@
 
 namespace BehTavan::TimeMeasuring
 {
-    using _TimePoint = std::chrono::high_resolution_clock::time_point;
-
     // Time units
     namespace TimeUnit
     {
-        using Nanoseconds = std::chrono::nanoseconds;
-        using Microseconds = std::chrono::microseconds;
-        using Milliseconds = std::chrono::milliseconds;
         using Seconds = std::chrono::seconds;
+        using Milliseconds = std::chrono::milliseconds;
+        using Microseconds = std::chrono::microseconds;
+        using Nanoseconds = std::chrono::nanoseconds;
     }
 
     /**
@@ -26,8 +24,10 @@ namespace BehTavan::TimeMeasuring
      * @return How long the execution of the function took, in the specified unit.
      */
     template<typename TimeUnit, typename Function, typename... FunctionArgs>
-    constexpr inline size_t measureFuncExecTime(Function func, FunctionArgs&&... args)
-    {    
+    inline size_t measureFuncExecTime(Function func, FunctionArgs&&... args)
+    {
+        using _TimePoint = std::chrono::high_resolution_clock::time_point;
+
         _TimePoint t1 = std::chrono::high_resolution_clock::now();
         func(std::forward<FunctionArgs>(args)...);
         _TimePoint t2 = std::chrono::high_resolution_clock::now();
