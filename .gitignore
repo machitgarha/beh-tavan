@@ -2,3 +2,6 @@
 build/
 a.exe
 a.out
+
+# IDE and editor related
+compile_flags.txt
