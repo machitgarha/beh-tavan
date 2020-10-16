@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+using namespace BehTavan;
+
 /**
  * Throws exceptions in the case of bad inputs.
  *
@@ -9,7 +11,7 @@
  */
 static inline void handleInvalidCases(Int32 base, UInt32 exponent);
 
-Int64 power(Int32 base, UInt32 exponent)
+Int64 BehTavan::power(Int32 base, UInt32 exponent)
 {
     handleInvalidCases(base, exponent);
 
@@ -20,7 +22,7 @@ Int64 power(Int32 base, UInt32 exponent)
     return result;
 }
 
-Int64 powerOptimized(Int32 base, UInt32 exponent)
+Int64 BehTavan::powerOptimized(Int32 base, UInt32 exponent)
 {
     handleInvalidCases(base, exponent);
 

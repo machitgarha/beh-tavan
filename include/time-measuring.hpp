@@ -32,7 +32,7 @@ namespace BehTavan::TimeMeasuring
         func(std::forward<FunctionArgs>(args)...);
         _TimePoint t2 = std::chrono::high_resolution_clock::now();
 
-        return std::chrono::duration<TimeUnit>(t2 - t1).count();
+        return std::chrono::duration_cast<TimeUnit>(t2 - t1).count();
     }
 }
 
