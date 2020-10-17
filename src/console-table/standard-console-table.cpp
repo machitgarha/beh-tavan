@@ -1,8 +1,7 @@
-#include "standard-console-table.hpp"
+#include "console-table/standard-console-table.hpp"
 
 using namespace BehTavan;
-
-using StandardConsoleTable = BehTavan::StandardConsoleTable;
+using BehTavan::StandardConsoleTable;
 
 StandardConsoleTable::StandardConsoleTable():
     samilton::ConsoleTable(

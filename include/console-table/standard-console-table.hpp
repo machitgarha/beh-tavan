@@ -5,6 +5,9 @@
 
 namespace BehTavan
 {
+    /**
+     * A console table that uses more standard characters in the output.
+     */
     class StandardConsoleTable: public samilton::ConsoleTable
     {
         public:
