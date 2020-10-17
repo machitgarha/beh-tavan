@@ -9,8 +9,6 @@
 #include "util.hpp"
 #include "console-table/standard-console-table.hpp"
 
-#include "nameof.hpp"
-
 #define BASE_DEFAULT 3
 #define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
 
