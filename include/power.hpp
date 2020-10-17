@@ -37,7 +37,7 @@ namespace BehTavan
     /**
      * Returns all available power functions information.
      */
-    inline PowerFunctionInfoList getPowerFunctionsInfo()
+    inline PowerFunctionInfoList getAllPowerFunctionsInfo()
     {
         return {
             {

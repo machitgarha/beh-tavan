@@ -1,6 +1,8 @@
 #ifndef BEH_TAVAN_TYPES_HPP
 #define BEH_TAVAN_TYPES_HPP
 
+#include <vector>
+
 namespace BehTavan
 {
     using Int32 = long int;
@@ -11,6 +13,7 @@ namespace BehTavan
 
     using Base = Int32;
     using Exponent = UInt32;
+    using ExponentVector = std::vector<Exponent>;
 }
 
 #endif // BEH_TAVAN_TYPES_HPP
