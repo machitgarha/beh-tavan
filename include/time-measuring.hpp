@@ -23,13 +23,20 @@ namespace BehTavan::TimeMeasuring
      * @param args The arguments forwarded to the function.
      * @return How long the execution of the function took, in the specified unit.
      */
-    template<typename TimeUnit, typename Function, typename... FunctionArgs>
-    inline size_t measureFuncExecTime(Function func, FunctionArgs&&... args)
-    {
+    template<
+        typename TimeUnit,
+        typename ReturnType,
+        typename Function,
+        typename... FunctionArgs
+    > inline size_t measureFuncExecTime(
+        ReturnType &result,
+        Function func,
+        FunctionArgs&&... args
+    ) {
         using _TimePoint = std::chrono::high_resolution_clock::time_point;
 
         _TimePoint t1 = std::chrono::high_resolution_clock::now();
-        func(std::forward<FunctionArgs>(args)...);
+        result = func(std::forward<FunctionArgs>(args)...);
         _TimePoint t2 = std::chrono::high_resolution_clock::now();
 
         return std::chrono::duration_cast<TimeUnit>(t2 - t1).count();
