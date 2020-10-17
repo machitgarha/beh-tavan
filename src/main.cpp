@@ -7,7 +7,7 @@
 #include "time-measuring.hpp"
 #include "power.hpp"
 #include "util.hpp"
-#include "console-table/standard-console-table.hpp"
+#include "console-table/execution-result-table.hpp"
 
 #define BASE_DEFAULT 3
 #define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
@@ -38,14 +38,7 @@ int main()
     const Base base = getBase(interactive);
     const ExponentVector exponents = getExponents(interactive);
 
-    StandardConsoleTable resultTable;
-
-    // The header
-    resultTable.addRow({
-        static_cast<std::string>(""),
-        NAMEOF(power).str(),
-        NAMEOF(powerOptimized).str(),
-    });
+    ExecutionResultTable resultTable {getAllPowerFunctionsInfo()};
 
     for (size_t exponent : exponents) {
         resultTable.addRow({
