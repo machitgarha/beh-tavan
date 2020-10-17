@@ -1,28 +1,47 @@
 #include <cstdlib>
-#include <forward_list>
+#include <vector>
 #include <iostream>
 
 #include "standard-console-table.hpp"
 #include "types.hpp"
 #include "time-measuring.hpp"
 #include "power.hpp"
+#include "util.hpp"
 
 #include "nameof.hpp"
 
+#define BASE_DEFAULT 3
+#define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
+
 using namespace BehTavan;
 using namespace BehTavan::TimeMeasuring;
+
+using ExponentVector = std::vector<Exponent>;
 
 /**
  * Prints a simple message. Supposed to be at the start of the program.
  */
 static void showStartMessage();
+/**
+ * Returns whether the program should get input from the user or not at all.
+ */
+static bool isInteractive();
+/**
+* Gets the base from the user, and returns it.
+*/
+static Base getBase(bool interactive = true);
+/**
+ * Gets a vector of exponents from the user input, and returns it.
+ */
+static ExponentVector getExponents(bool interactive = true);
 
 int main()
 {
     showStartMessage();
 
-    std::forward_list<size_t> exponents = {1, 2, 5, 10, 100, 1000, 10000, 100000, 1000000};
-    const BehTavan::Int32 base = 3;    
+    const bool interactive = isInteractive();
+    const Base base = getBase(interactive);
+    const ExponentVector exponents = getExponents(interactive);
 
     StandardConsoleTable resultTable;
 
@@ -48,10 +67,59 @@ int main()
 
 void showStartMessage()
 {
-    using namespace std;
+    printLine("Welcome to BehTavan!");
+    printLine("A simple program to show you how we can optimize a power function.");
+    printLine("This is a free program: Licensed under GPLv3.");
+    printNewLine();
 
-    cout << "Welcome to BehTavan!" << endl;
-    cout << "A simple program to show you how we can optimize a power function." << endl;
-    cout << "You can see the difference between the normal and the optimized one." << endl;
-    cout << endl;
+    printLine("It raises a base number to one or more exponents using two power");
+    printLine("functions, using normal and optimized algorithms, and measures");
+    printLine("the time taken for each one, for each exponent. Then, the results");
+    printLine("are shown in a simple table.");
+    printNewLine();
+}
+
+bool isInteractive()
+{
+    std::string envInteractive = getenv("INTERACTIVE");
+    return envInteractive != "0";
+}
+
+Base getBase(bool interactive)
+{
+    if (!interactive) {
+        return BASE_DEFAULT;
+    }
+
+    Base base;
+
+    printLine("Please enter the base (enter 0 for default):");
+    std::cin >> base;
+
+    return base ?: BASE_DEFAULT;
+}
+
+ExponentVector getExponents(bool interactive)
+{
+    if (!interactive) {
+        return EXPONENTS_DEFAULT;
+    }
+
+    ExponentVector result;
+    Exponent tmpExponent = 1;
+
+    printLine("Please enter the exponents (enter 0 to exit, if 0 is entered as the first");
+    printLine("input, then the default value is used):");
+
+    std::cin >> tmpExponent;
+    while (tmpExponent != 0) {
+        result.push_back(tmpExponent);
+        std::cin >> tmpExponent;
+    }
+
+    if (result.empty()) {
+        return EXPONENTS_DEFAULT;
+    } else {
+        return result;
+    }
 }
