@@ -2,11 +2,12 @@
 #include <vector>
 #include <iostream>
 
-#include "standard-console-table.hpp"
+#include "env.hpp"
 #include "types.hpp"
 #include "time-measuring.hpp"
 #include "power.hpp"
 #include "util.hpp"
+#include "console-table/standard-console-table.hpp"
 
 #include "nameof.hpp"
 
@@ -22,10 +23,6 @@ using ExponentVector = std::vector<Exponent>;
  * Prints a simple message. Supposed to be at the start of the program.
  */
 static void showStartMessage();
-/**
- * Returns whether the program should get input from the user or not at all.
- */
-static bool isInteractive();
 /**
 * Gets the base from the user, and returns it.
 */
@@ -77,12 +74,6 @@ void showStartMessage()
     printLine("the time taken for each one, for each exponent. Then, the results");
     printLine("are shown in a simple table.");
     printNewLine();
-}
-
-bool isInteractive()
-{
-    std::string envInteractive = getenv("INTERACTIVE");
-    return envInteractive != "0";
 }
 
 Base getBase(bool interactive)
