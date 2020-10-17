@@ -9,20 +9,20 @@ using namespace BehTavan;
  *
  * The only invalid case is 0^0.
  */
-static inline void handleInvalidCases(Int32 base, UInt32 exponent);
+static inline void handleInvalidCases(Base base, Exponent exponent);
 
-Int64 BehTavan::power(Int32 base, UInt32 exponent)
+Int64 BehTavan::power(Base base, Exponent exponent)
 {
     handleInvalidCases(base, exponent);
 
     Int64 result = 1;
-    for (Int32 i = 1; i <= exponent; i++) {
+    for (Base i = 1; i <= exponent; i++) {
         result *= base;
     }
     return result;
 }
 
-Int64 BehTavan::powerOptimized(Int32 base, UInt32 exponent)
+Int64 BehTavan::powerOptimized(Base base, Exponent exponent)
 {
     handleInvalidCases(base, exponent);
 
@@ -54,7 +54,7 @@ Int64 BehTavan::powerOptimized(Int32 base, UInt32 exponent)
     return base * remainingMul;
 }
 
-void handleInvalidCases(Int32 base, UInt32 exponent)
+void handleInvalidCases(Base base, Exponent exponent)
 {
     if (base == 0 && exponent == 0) {
         throw std::invalid_argument("0 raised to 0 is undefined");

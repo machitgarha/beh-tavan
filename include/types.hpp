@@ -8,6 +8,9 @@ namespace BehTavan
 
     using UInt32 = unsigned long int;
     using UInt64 = unsigned long long int;
+
+    using Base = Int32;
+    using Exponent = UInt32;
 }
 
 #endif // BEH_TAVAN_TYPES_HPP
