@@ -18,20 +18,17 @@ namespace BehTavan
              * Prepares the table header, based on the given argument.
              *
              * @param powerFuncsInfo The information of all available power functions to be
-             * used in the header, as well as future usages.
+             * used in the header.
              */
-            ExecutionResultTable(const PowerFunctionInfoList powerFuncsInfo);
+            ExecutionResultTable(const PowerFunctionInfoList &powerFuncsInfo);
 
         private:
             /**
-             * Information container for all available power functions.
-             */
-            const PowerFunctionInfoList powerFuncsInfo;
-
-            /**
              * Fills the header of the given table, based on the power functions.
+             *
+             * @param powerFuncsInfo The information of all available power functions.
              */
-            void addHeader();
+            void addHeader(const PowerFunctionInfoList &powerFuncsInfo);
     };
 }
 
