@@ -2,6 +2,8 @@
 
 A very simple, yet easily-hackable program to show how generally we can optimize things, and specifically in this project, power functions.
 
+**Note:** The sole purpose of this program was comparing relative performance of different algorithms, and the output of the power functions are only to assert they produce the same output. As a result, we have not used any library providing big numbers (e.g. GMP), so the results of the functions are wrong for big inputs.
+
 ## Features
 
 ### Hackable, Easily
@@ -53,6 +55,10 @@ You should be able to run this project just anywhere: Linux, OS X, Windows or BS
 ## Documentation
 
 Although this is not a big project, but a minimal documentation is available. It lives in `docs` directory, [check it out now](./docs/README.md).
+
+### Analysis
+
+Data itself is not useful at all. What makes it useful is analyzing it, isn't it? See [what we understand from the output of the program](./docs/analysis/README.md).
 
 ## License
 
