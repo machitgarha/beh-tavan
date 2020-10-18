@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace BehTavan
+namespace BehTavan::Env
 {
     /**
      * Returns whether the program should get input from the user or not at all.
