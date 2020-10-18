@@ -3,7 +3,6 @@
 #include "output.hpp"
 #include "types.hpp"
 #include "execution.hpp"
-#include "power.hpp"
 #include "console-table/execution-result-table.hpp"
 
 using namespace BehTavan;
