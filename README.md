@@ -69,3 +69,7 @@ Licensed under GPLv3. See [LICENSE.md](./LICENSE.md).
 ### Project Name?
 
 Yes. It consists of two words in Persian: "Beh", which means the best, and "Tavan", which means exponentiation.
+
+### Why at all?
+
+The result of a practice of my university. Data structures course. That's all of it.
