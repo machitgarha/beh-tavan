@@ -39,11 +39,7 @@ After compiling using the above steps, run it via:
 ./build/BehTavan
 ```
 
-### Environment Variables
-
-(Make sure you are using a POSIX-compatible shell)
-
--   `INTERACTIVE=0`: This leaves the program with default values, instead of getting them from the user. This should be useful if you want to run the program multiple times in a row.
+**Docs:** [Environment Variables](./docs/environment-variables.md).
 
 ## Compatibility
 
@@ -53,6 +49,10 @@ You should be able to run this project just anywhere: Linux, OS X, Windows or BS
 
 -   OS: Linux, Fedora Workstation 32
     Compiler: GCC C++ Compiler
+
+## Documentation
+
+Although this is not a big project, but a minimal documentation is available. It lives in `docs` directory, [check it out now](./docs/README.md).
 
 ## License
 
