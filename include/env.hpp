@@ -1,7 +1,8 @@
 #ifndef BEH_TAVAN_ENV_HPP
 #define BEH_TAVAN_ENV_HPP
 
-#include <string>
+#include <cstdlib>
+#include <cstring>
 
 namespace BehTavan::Env
 {
@@ -10,8 +11,13 @@ namespace BehTavan::Env
      */
     inline bool isInteractive()
     {
-        std::string envInteractive = getenv("INTERACTIVE");
-        return envInteractive != "0";
+        const char *envInteractiveStr = std::getenv("INTERACTIVE");
+
+        // By default, it's interactive
+        if (envInteractiveStr == nullptr) {
+            return true;
+        }
+        return strcmp(envInteractiveStr, "0") != 0;
     }
 }
 
