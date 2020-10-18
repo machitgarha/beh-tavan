@@ -3,6 +3,7 @@
 
 #include "standard-console-table.hpp"
 #include "power.hpp"
+#include "execution.hpp"
 
 namespace BehTavan
 {
@@ -20,7 +21,12 @@ namespace BehTavan
              * @param powerFuncsInfo The information of all available power functions to be
              * used in the header.
              */
-            ExecutionResultTable(const PowerFunctionInfoList &powerFuncsInfo);
+            ExecutionResultTable(const PowerFunctionInfoVector &powerFuncsInfo);
+
+            void addRow(Exponent exponent, ExecutionTimeVector &&timesResult);
+
+        protected:
+            using StandardConsoleTable::addRow;
 
         private:
             /**
@@ -28,7 +34,7 @@ namespace BehTavan
              *
              * @param powerFuncsInfo The information of all available power functions.
              */
-            void addHeader(const PowerFunctionInfoList &powerFuncsInfo);
+            void addHeader(const PowerFunctionInfoVector &powerFuncsInfo);
     };
 }
 

@@ -16,6 +16,8 @@ namespace BehTavan::TimeMeasuring
         using Nanoseconds = std::chrono::nanoseconds;
     }
 
+    using Time = size_t;
+
     /**
      * A function to measure execution time of a function.
      *
@@ -28,7 +30,7 @@ namespace BehTavan::TimeMeasuring
         typename ReturnType,
         typename Function,
         typename... FunctionArgs
-    > inline size_t measureFuncExecTime(
+    > inline Time measureFuncExecTime(
         ReturnType &result,
         Function func,
         FunctionArgs&&... args

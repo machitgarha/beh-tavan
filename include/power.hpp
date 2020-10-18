@@ -32,12 +32,12 @@ namespace BehTavan
         std::string name;
     };
 
-    using PowerFunctionInfoList = std::vector<PowerFunctionInfo>;
+    using PowerFunctionInfoVector = std::vector<PowerFunctionInfo>;
 
     /**
      * Returns all available power functions information.
      */
-    inline PowerFunctionInfoList getAllPowerFunctionsInfo()
+    inline PowerFunctionInfoVector getAllPowerFunctionsInfo()
     {
         return {
             {

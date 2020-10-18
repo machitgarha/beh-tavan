@@ -2,7 +2,7 @@
 #include "input.hpp"
 #include "output.hpp"
 #include "types.hpp"
-#include "time-measuring.hpp"
+#include "execution.hpp"
 #include "power.hpp"
 #include "console-table/execution-result-table.hpp"
 
@@ -20,14 +20,14 @@ int main()
     const Base base = Input::getBase(interactive);
     const ExponentVector exponents = Input::getExponents(interactive);
 
-    ExecutionResultTable resultTable {getAllPowerFunctionsInfo()};
+    PowerFunctionInfoVector powerFuncsInfo = getAllPowerFunctionsInfo();
+    ExecutionResultTable resultTable(powerFuncsInfo);
 
     for (size_t exponent : exponents) {
-        resultTable.addRow({
+        resultTable.addRow(
             exponent,
-            measureFuncExecTime<TimeUnit::Nanoseconds>(power, base, exponent),
-            measureFuncExecTime<TimeUnit::Nanoseconds>(powerOptimized, base, exponent),
-        });
+            execute(powerFuncsInfo, base, exponent)
+        );
     }
 
     std::cout << resultTable;

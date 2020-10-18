@@ -3,12 +3,12 @@
 using namespace BehTavan;
 using BehTavan::ExecutionResultTable;
 
-ExecutionResultTable::ExecutionResultTable(const PowerFunctionInfoList &powerFuncsInfo)
+ExecutionResultTable::ExecutionResultTable(const PowerFunctionInfoVector &powerFuncsInfo)
 {
     this->addHeader(powerFuncsInfo);
 }
 
-void ExecutionResultTable::addHeader(const PowerFunctionInfoList &powerFuncsInfo)
+void ExecutionResultTable::addHeader(const PowerFunctionInfoVector &powerFuncsInfo)
 {
     std::vector<std::string> headerCells;
     headerCells.reserve(powerFuncsInfo.size() + 1);
@@ -21,4 +21,14 @@ void ExecutionResultTable::addHeader(const PowerFunctionInfoList &powerFuncsInfo
     }
 
     this->addRow(headerCells);
+}
+
+void ExecutionResultTable::addRow(
+    Exponent exponent,
+    ExecutionTimeVector &&row
+) {
+    // Add the exponent for the first column
+    row.insert(row.begin(), exponent);
+
+    this->addRow(row);
 }
