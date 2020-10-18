@@ -1,5 +1,6 @@
 #include "output.hpp"
 
+using namespace BehTavan;
 using namespace BehTavan::Output;
 
 void Output::showStartMessage()
