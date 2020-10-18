@@ -3,7 +3,7 @@
 using namespace BehTavan;
 
 template<typename TimeUnit>
-ExecutionTimeVector execute(
+ExecutionTimeVector BehTavan::execute(
     const PowerFunctionInfoVector &powerFuncsInfo,
     Base base,
     Exponent exponent
@@ -29,3 +29,18 @@ ExecutionTimeVector execute(
 
    return times;
 }
+
+// Specializations
+using namespace TimeMeasuring::TimeUnit;
+template ExecutionTimeVector BehTavan::execute<Seconds>(
+    const PowerFunctionInfoVector &, Base, Exponent
+);
+template ExecutionTimeVector BehTavan::execute<Milliseconds>(
+    const PowerFunctionInfoVector &, Base, Exponent
+);
+template ExecutionTimeVector BehTavan::execute<Microseconds>(
+    const PowerFunctionInfoVector &, Base, Exponent
+);
+template ExecutionTimeVector BehTavan::execute<Nanoseconds>(
+    const PowerFunctionInfoVector &, Base, Exponent
+);
