@@ -22,6 +22,9 @@ int main()
     PowerFunctionInfoVector powerFuncsInfo = getAllPowerFunctionsInfo();
     ExecutionResultTable resultTable(powerFuncsInfo);
 
+    // Print base value before anything
+    printVarVal(base);
+
     for (size_t exponent : exponents) {
         resultTable.addRow(
             exponent,

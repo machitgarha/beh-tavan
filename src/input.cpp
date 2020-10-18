@@ -15,6 +15,7 @@ Base Input::getBase(bool interactive)
 
     printLine("Please enter the base (enter 0 for default):");
     std::cin >> base;
+    printNewLine();
 
     return base ?: BASE_DEFAULT;
 }
@@ -36,6 +37,8 @@ ExponentVector Input::getExponents(bool interactive)
         result.push_back(tmpExponent);
         std::cin >> tmpExponent;
     }
+
+    printNewLine();
 
     if (result.empty()) {
         return EXPONENTS_DEFAULT;

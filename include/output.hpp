@@ -3,8 +3,12 @@
 
 #include <iostream>
 
+#include "nameof.hpp"
+
 #define printNewLine() std::cout << std::endl
 #define printLine(a) std::cout << a << std::endl
+
+#define printVarVal(var) printLine(NAMEOF(var).str() << " = " << var)
 
 namespace BehTavan::Output
 {
