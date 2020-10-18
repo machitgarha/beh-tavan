@@ -3,7 +3,7 @@
 using namespace BehTavan;
 using namespace BehTavan::Output;
 
-void Output::showStartMessage()
+void Output::printStartMessage()
 {
     printLine("Welcome to BehTavan!");
     printLine("A simple program to show you how we can optimize a power function.");

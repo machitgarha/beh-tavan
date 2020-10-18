@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <chrono>
 #include <utility>
+#include <stdexcept>
 
 namespace BehTavan::TimeMeasuring
 {
@@ -17,6 +18,27 @@ namespace BehTavan::TimeMeasuring
     }
 
     using Time = size_t;
+
+    /**
+     * Returns a printable human-readable full time unit, in singular and lowercase manner.
+     */
+    template<typename TUnit>
+    constexpr inline const char *getPrintableTimeUnit()
+    {
+        if (std::is_same_v<TUnit, TimeUnit::Seconds>) {
+            return "second";
+        }
+        if (std::is_same_v<TUnit, TimeUnit::Milliseconds>) {
+            return "millisecond";
+        }
+        if (std::is_same_v<TUnit, TimeUnit::Microseconds>) {
+            return "microsecond";
+        }
+        if (std::is_same_v<TUnit, TimeUnit::Nanoseconds>) {
+            return "nanosecond";
+        }
+        throw new std::invalid_argument("Invalid time unit");
+    }
 
     /**
      * A function to measure execution time of a function.

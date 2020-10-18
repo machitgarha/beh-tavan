@@ -8,11 +8,9 @@
 using namespace BehTavan;
 using namespace BehTavan::TimeMeasuring;
 
-using ExponentVector = std::vector<Exponent>;
-
 int main()
 {
-    Output::showStartMessage();
+    Output::printStartMessage();
 
     const bool interactive = Env::isInteractive();
 
@@ -22,13 +20,16 @@ int main()
     PowerFunctionInfoVector powerFuncsInfo = getAllPowerFunctionsInfo();
     ExecutionResultTable resultTable(powerFuncsInfo);
 
-    // Print base value before anything
+    using TimeUnit = TimeUnit::Nanoseconds;
+
+    // Print information about the table
     printVarVal(base);
+    std::cout << "Time unit is in " << getPrintableTimeUnit<TimeUnit>() << "s.";
 
     for (size_t exponent : exponents) {
         resultTable.addRow(
             exponent,
-            execute(powerFuncsInfo, base, exponent)
+            execute<TimeUnit>(powerFuncsInfo, base, exponent)
         );
     }
 
