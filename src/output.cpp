@@ -1,12 +1,8 @@
 #include "output.hpp"
 
-#include <iostream>
-
-#include "util.hpp"
-
 using namespace BehTavan::Output;
 
-void showStartMessage()
+void Output::showStartMessage()
 {
     printLine("Welcome to BehTavan!");
     printLine("A simple program to show you how we can optimize a power function.");

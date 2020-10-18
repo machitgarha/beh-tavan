@@ -1,13 +1,11 @@
 #include "input.hpp"
 
-#include <iostream>
-
-#include "util.hpp"
+#include "output.hpp"
 
 using namespace BehTavan;
 using namespace BehTavan::Input;
 
-Base getBase(bool interactive)
+Base Input::getBase(bool interactive)
 {
     if (!interactive) {
         return BASE_DEFAULT;
@@ -21,7 +19,7 @@ Base getBase(bool interactive)
     return base ?: BASE_DEFAULT;
 }
 
-ExponentVector getExponents(bool interactive)
+ExponentVector Input::getExponents(bool interactive)
 {
     if (!interactive) {
         return EXPONENTS_DEFAULT;
