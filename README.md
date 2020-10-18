@@ -10,7 +10,7 @@ Add your own power function with your custom implementation. Let the program kno
 
 Maybe want to test other functions? That should require more hacking, but should be easy too.
 
-Want to know more? See [HACKING.md](./HACKING.md).
+Want to know more? See [HACKING.md](./docs/HACKING.md).
 
 ## Build
 
