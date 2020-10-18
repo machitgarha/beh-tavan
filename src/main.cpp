@@ -24,15 +24,22 @@ int main()
 
     // Print information about the table
     printVarVal(base);
-    std::cout << "Time unit is in " << getPrintableTimeUnit<TimeUnit>() << "s.";
+    printLine3("Time unit is in ", getPrintableTimeUnit<TimeUnit>(), "s.");
+    printNewLine();
 
-    for (size_t exponent : exponents) {
-        resultTable.addRow(
-            exponent,
-            execute<TimeUnit>(powerFuncsInfo, base, exponent)
-        );
+    // Fill the table with data
+    try {
+        for (size_t exponent : exponents) {
+            resultTable.addRow(
+                exponent,
+                execute<TimeUnit>(powerFuncsInfo, base, exponent)
+            );
+        }
+    } catch (std::runtime_error &e) {
+        printLine2("Runtime error: ", e.what());
     }
 
+    // Print the table
     std::cout << resultTable;
 
     return 0;

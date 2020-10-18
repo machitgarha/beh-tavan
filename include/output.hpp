@@ -7,6 +7,8 @@
 
 #define printNewLine() std::cout << std::endl
 #define printLine(a) std::cout << a << std::endl
+#define printLine2(a, b) printLine(a << b)
+#define printLine3(a, b, c) printLine(a << b << c)
 
 #define printVarVal(var) printLine(NAMEOF(var).str() << " = " << var)
 
