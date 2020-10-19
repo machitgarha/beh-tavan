@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "time-measuring.hpp"
-#include "power.hpp"
+#include "functions/power.hpp"
 
 namespace BehTavan
 {

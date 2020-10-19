@@ -1,4 +1,4 @@
-#include "power.hpp"
+#include "functions/power.hpp"
 
 #include <stdexcept>
 

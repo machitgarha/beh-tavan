@@ -2,8 +2,8 @@
 #define BEH_TAVAN_EXECUTION_RESULT_TABLE_HPP
 
 #include "standard-console-table.hpp"
-#include "power.hpp"
 #include "execution.hpp"
+#include "functions/power.hpp"
 
 namespace BehTavan
 {
