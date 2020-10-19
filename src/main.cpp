@@ -7,6 +7,7 @@
 
 using namespace BehTavan;
 using namespace BehTavan::TimeMeasuring;
+using namespace BehTavan::Functions::Power;
 
 int main()
 {
@@ -19,8 +20,8 @@ int main()
         "exponent", EXPONENTS_DEFAULT, interactive
     );
 
-    PowerFunctionInfoVector powerFuncsInfo = getAllPowerFunctionsInfo();
-    ExecutionResultTable resultTable(powerFuncsInfo);
+    const auto &funcsInfo = powerFuncsInfo;
+    ExecutionResultTable resultTable(funcsInfo);
 
     using TimeUnit = TimeUnit::Nanoseconds;
 

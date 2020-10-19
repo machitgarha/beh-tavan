@@ -28,7 +28,7 @@ namespace BehTavan::Functions
     };
 
     template<typename FunctionPointer>
-    using FunctionInfoCollection = List<FunctionInfo<FunctionPointer>>;
+    using FunctionInfoList = List<FunctionInfo<FunctionPointer>>;
 }
 
 #endif // BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP

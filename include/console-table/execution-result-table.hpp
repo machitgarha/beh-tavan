@@ -3,13 +3,16 @@
 
 #include "standard-console-table.hpp"
 #include "execution.hpp"
-#include "functions/power.hpp"
+#include "functions/base.hpp"
 
 namespace BehTavan
 {
+    using namespace Functions;
+
     /**
      * Console table specifically for holding results of executions.
      */
+    template<typename Func>
     class ExecutionResultTable: public StandardConsoleTable
     {
         public:
@@ -18,10 +21,9 @@ namespace BehTavan
              *
              * Prepares the table header, based on the given argument.
              *
-             * @param powerFuncsInfo The information of all available power functions to be
-             * used in the header.
+             * @param funcsInfo Information list of functions being worked on.
              */
-            ExecutionResultTable(const PowerFunctionInfoVector &powerFuncsInfo);
+            ExecutionResultTable(const FunctionInfoList<Func> &funcsInfo);
 
             void addRow(Exponent exponent, ExecutionTimeVector &&timesResult);
 
@@ -34,7 +36,7 @@ namespace BehTavan
              *
              * @param powerFuncsInfo The information of all available power functions.
              */
-            void addHeader(const PowerFunctionInfoVector &powerFuncsInfo);
+            void addHeader(const FunctionInfoList<Func> &powerFuncsInfo);
     };
 }
 

@@ -22,10 +22,13 @@ namespace BehTavan::Functions::Power
      */
     Int64 powerOptimized(Base base, Exponent exponent);
 
+
+    using PowerFunctionInfoList = FunctionInfoList<PowerFunctionPointer>;
+
     /**
      * List of information of all available power functions.
      */
-    const FunctionInfoCollection<PowerFunctionPointer> powerFuncsInfo = {
+    const PowerFunctionInfoList powerFuncsInfo = {
         {
             power,
             NAMEOF(power).str()
