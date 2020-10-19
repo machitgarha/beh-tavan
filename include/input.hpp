@@ -1,26 +1,51 @@
 #ifndef BEH_TAVAN_INPUT_HPP
 #define BEH_TAVAN_INPUT_HPP
 
-#include "types.hpp"
-
-#define BASE_DEFAULT 3
-#define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
+#include <string>
+#include <vector>
 
 namespace BehTavan::Input
 {
-    /**
-     * Returns a base number.
-     *
-     * @param interactive Whether the value is user supplied or not.
+    /*
+     * Input name.
      */
-    Base getBase(bool interactive = true);
+    using Name = const char *;
+
+    /*
+     * A type to hold a collection of things. Using vector directly is not a good idea, as
+     * we may change it in the future (considering we do not break BC), and also, a
+     * separated type helps preventing confusions.
+     */
+    template<typename T>
+    using Collection = std::vector<T>;
 
     /**
-     * Returns a list of exponent numbers.
+     * Returns a number, and if needed, gets it from the user.
      *
+     * @param name The name of the input number.
+     * @param defaultValue The default value.
      * @param interactive Whether the value is user supplied or not.
      */
-    ExponentVector getExponents(bool interactive = true);
+    template<typename NumberType>
+    NumberType getNumber(
+        Name name,
+        NumberType defaultValue,
+        bool interactive = true
+    );
+
+    /**
+     * Returns a collection of numbers, and if needed, gets it from the user.
+     *
+     * @param name The name of the input number.
+     * @param defaultValue The default value.
+     * @param interactive Whether the value is user supplied or not.
+     */
+    template<typename NumberType>
+    Collection<NumberType> &getNumberCollection(
+        Name name,
+        const Collection<NumberType> &defaultValue,
+        bool interactive = true
+    );
 }
 
 #endif // BEH_TAVAN_INPUT_HPP
