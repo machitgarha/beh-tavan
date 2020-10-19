@@ -1,14 +1,13 @@
 #ifndef BEH_TAVAN_POWER_HPP
 #define BEH_TAVAN_POWER_HPP
 
-#include <vector>
-#include <string>
-
-#include "nameof.hpp"
-
+#include "base.hpp"
 #include "types.hpp"
 
-namespace BehTavan
+#define BASE_DEFAULT 3
+#define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
+
+namespace BehTavan::Functions::Power
 {
     // All power functions must have the following prototype
     using PowerFunctionPointer = Int64 (*)(Base, Exponent);
@@ -24,32 +23,18 @@ namespace BehTavan
     Int64 powerOptimized(Base base, Exponent exponent);
 
     /**
-     * A structure to hold properties of a power function.
+     * List of information of all available power functions.
      */
-    struct PowerFunctionInfo
-    {
-        PowerFunctionPointer ptr;
-        std::string name;
+    const FunctionInfoCollection<PowerFunctionPointer> powerFuncsInfo = {
+        {
+            power,
+            NAMEOF(power).str()
+        },
+        {
+            powerOptimized,
+            NAMEOF(powerOptimized).str()
+        },
     };
-
-    using PowerFunctionInfoVector = std::vector<PowerFunctionInfo>;
-
-    /**
-     * Returns all available power functions information.
-     */
-    inline PowerFunctionInfoVector getAllPowerFunctionsInfo()
-    {
-        return {
-            {
-                power,
-                NAMEOF(power).str()
-            },
-            {
-                powerOptimized,
-                NAMEOF(powerOptimized).str()
-            },
-        };
-    }
 }
 
 #endif // BEH_TAVAN_POWER_HPP
