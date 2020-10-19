@@ -9,18 +9,23 @@
 
 namespace BehTavan::Functions::Power
 {
+    // Types used in power functions
+    using Base = BehTavan::Types::Int32;
+    using Exponent = BehTavan::Types::UInt32;
+    using Result = BehTavan::Types::Int64;
+
     // All power functions must have the following prototype
-    using PowerFunctionPointer = Int64 (*)(Base, Exponent);
+    using PowerFunctionPointer = Result (*)(Base, Exponent);
 
     /**
      * Powers an integer to an integer, using a normal algorithm.
      */
-    Int64 power(Base base, Exponent exponent);
+    Result power(Base base, Exponent exponent);
 
     /**
      * Powers an integer to an integer, using the optimized method.
      */
-    Int64 powerOptimized(Base base, Exponent exponent);
+    Result powerOptimized(Base base, Exponent exponent);
 
 
     using PowerFunctionInfoList = FunctionInfoList<PowerFunctionPointer>;
