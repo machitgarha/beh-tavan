@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "time-measuring.hpp"
-#include "functions/power.hpp"
+#include "functions/base.hpp"
 
 namespace BehTavan
 {
@@ -12,19 +12,17 @@ namespace BehTavan
     using ExecutionTimeVector = std::vector<ExecutionTime>;
 
     /**
-     * Execute all power functions and measures times taken for each one, and returns them.
+     * Returns execution times for a series of functions, for the given input.
      *
-     * @param powerFuncsInfo Power functions information.
-     * @param base The base of the power operation.
+     * @param funcsArguments The arguments to be forwarded
      * @param exponent The exponent of the power operation.
      * @return A list of times in the specified unit (via template argument), sorted by the
      * power functions info list given.
      */
-    template<typename TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds>
+    template<typename TimeUnit, typename ReturnType, typename ...ArgTypes>
     ExecutionTimeVector execute(
-        const PowerFunctionInfoVector &powerFuncsInfo,
-        Base base,
-        Exponent exponent
+        const Functions::FunctionInfoList<ReturnType, ArgTypes...> &funcsInfo,
+        ArgTypes ...funcArguments
     );
 }
 

@@ -2,45 +2,44 @@
 
 using namespace BehTavan;
 
-template<typename TimeUnit>
+template<typename TimeUnit, typename ReturnType, typename ...ArgTypes>
 ExecutionTimeVector BehTavan::execute(
-    const PowerFunctionInfoVector &powerFuncsInfo,
-    Base base,
-    Exponent exponent
+    const Functions::FunctionInfoList<ReturnType, ArgTypes...> &funcsInfo,
+    ArgTypes ...funcArguments
 ) {
-   using namespace TimeMeasuring;
+    using namespace TimeMeasuring;
 
-   const size_t powerFuncsSize = powerFuncsInfo.size();
-   ExecutionTimeVector times;
-   Int64 outputs[powerFuncsSize];
+    // Function type of each function
+    using FunctionType = typename
+        Functions::FunctionInfo<ReturnType, ArgTypes...>::FunctionType;
 
-   for (size_t i = 0; i < powerFuncsSize; i++) {
-       times.push_back(
-           measureFuncExecTime<TimeUnit>(
-               outputs[i], powerFuncsInfo[i].ptr, base, exponent
-           )
-       );
+    ExecutionTimeVector times;
 
-       // Ensure all results are equal
-       if (i != 0 && outputs[i] != outputs[i - 1]) {
-           throw std::runtime_error("Power functions do not produce the same output");
-       }
-   }
+    /*
+     * To ensure all functions produce the same output, we must compare their outputs to
+     * be equal. However, comparing all consecutive output pairs is just enough.
+     *
+     * So, we need two variables for storing output of previous and current function.
+     * As the first element has no previous element, so we check not being the first one.
+     */
+    ReturnType prevOutput = 0, curOutput = 0;
+    bool isFirstElement = true;
 
-   return times;
+    for (const FunctionType &func : funcsInfo) {
+        times.push_back(
+            measureFuncExecTime<TimeUnit, ReturnType, ArgTypes...>(
+                curOutput, func.pointer, funcArguments...
+            )
+        );
+
+        // Ensure all outputs are equal
+        if (!isFirstElement && prevOutput != curOutput) {
+            throw std::runtime_error("Functions do not produce the same output");
+        }
+
+        isFirstElement = false;
+        prevOutput = curOutput;
+    }
+
+    return times;
 }
-
-// Specializations
-using namespace TimeMeasuring::TimeUnit;
-template ExecutionTimeVector BehTavan::execute<Seconds>(
-    const PowerFunctionInfoVector &, Base, Exponent
-);
-template ExecutionTimeVector BehTavan::execute<Milliseconds>(
-    const PowerFunctionInfoVector &, Base, Exponent
-);
-template ExecutionTimeVector BehTavan::execute<Microseconds>(
-    const PowerFunctionInfoVector &, Base, Exponent
-);
-template ExecutionTimeVector BehTavan::execute<Nanoseconds>(
-    const PowerFunctionInfoVector &, Base, Exponent
-);
