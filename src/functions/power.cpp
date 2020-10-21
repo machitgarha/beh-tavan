@@ -15,7 +15,7 @@ Result Power::power(Base base, Exponent exponent)
 {
     handleInvalidCases(base, exponent);
 
-    Int64 result = 1;
+    Result result = 1;
     for (Base i = 1; i <= exponent; i++) {
         result *= base;
     }
@@ -39,7 +39,7 @@ Result Power::powerOptimized(Base base, Exponent exponent)
      * For more optimization, we do not define new variables for a copied version of base
      * and exponent; as we do not need them later.
      */
-    Int64 remainingMul = 1;
+    Result remainingMul = 1;
     while (exponent != 1) {
         if (exponent % 2 == 0) {
             base *= base;

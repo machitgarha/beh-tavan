@@ -3,19 +3,18 @@
 
 #include "base.hpp"
 #include "types.hpp"
+#include <type_traits>
 
 #define BASE_DEFAULT 3
 #define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
 
 namespace BehTavan::Functions::Power
 {
-    // Types used in power functions
+    // Return type
+    using Result = BehTavan::Types::Int64;
+    // Arguments types
     using Base = BehTavan::Types::Int32;
     using Exponent = BehTavan::Types::UInt32;
-    using Result = BehTavan::Types::Int64;
-
-    // All power functions must have the following prototype
-    using PowerFunctionPointer = Result (*)(Base, Exponent);
 
     /**
      * Powers an integer to an integer, using a normal algorithm.
@@ -28,7 +27,7 @@ namespace BehTavan::Functions::Power
     Result powerOptimized(Base base, Exponent exponent);
 
 
-    using PowerFunctionInfoList = FunctionInfoList<PowerFunctionPointer>;
+    using PowerFunctionInfoList = FunctionInfoList<Result, Base, Exponent>;
 
     /**
      * List of information of all available power functions.

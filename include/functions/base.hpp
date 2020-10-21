@@ -2,6 +2,7 @@
 #define BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
 
 #include <initializer_list>
+#include <functional>
 #include <string>
 
 // For children only
@@ -20,15 +21,18 @@ namespace BehTavan::Functions
      * must use a generic form, so for each function it can be narrowed for that specific
      * use case.
      */
-    template<typename FunctionPointer>
+    template<typename ReturnType, typename ...ArgTypes>
     struct FunctionInfo
     {
-        FunctionPointer ptr;
+        using FuncType = ReturnType(ArgTypes...);
+
+        // TODO: Add default value (e.g. a functor) to prevent UB
+        std::function<FuncType> pointer;
         std::string name;
     };
 
-    template<typename FunctionPointer>
-    using FunctionInfoList = List<FunctionInfo<FunctionPointer>>;
+    template<typename ReturnType, typename ...ArgTypes>
+    using FunctionInfoList = List<FunctionInfo<ReturnType, ArgTypes...>>;
 }
 
 #endif // BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
