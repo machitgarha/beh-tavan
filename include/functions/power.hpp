@@ -5,9 +5,6 @@
 #include "types.hpp"
 #include <type_traits>
 
-#define BASE_DEFAULT 3
-#define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
-
 namespace BehTavan::Functions::Power
 {
     // Return type
