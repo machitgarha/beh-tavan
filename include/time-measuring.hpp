@@ -20,7 +20,7 @@ namespace BehTavan::TimeMeasuring
         using Nanoseconds = std::chrono::nanoseconds;
     }
 
-    using Time = size_t;
+    using ExecutionTime = size_t;
 
     /**
      * Returns a printable human-readable full time unit, in singular and lowercase manner.
@@ -56,7 +56,7 @@ namespace BehTavan::TimeMeasuring
      * @return How long the execution of the function took, in the specified unit.
      */
     template<typename TimeUnit, typename ReturnType, typename ...ArgTypes>
-    inline Time getFuncExecTime(
+    inline ExecutionTime getFuncExecTime(
         const typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType &func,
         ReturnType &funcOutput,
         ArgTypes &&...funcArgs
@@ -86,7 +86,7 @@ namespace BehTavan::TimeMeasuring
      * however, it is always good to pass template arguments explicitly.
      */
     template<typename TimeUnit, typename ...ArgTypes>
-    inline Time getFuncExecTime(
+    inline ExecutionTime getFuncExecTime(
         const typename FunctionInfo<void, ArgTypes...>::FunctionType &func,
         ArgTypes &&...funcArgs
     ) {
