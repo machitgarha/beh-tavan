@@ -23,7 +23,7 @@ namespace BehTavan
     template<typename TimeUnit, typename ReturnType, typename ...ArgTypes>
     inline ExecutionTimeVector getFuncExecTimeSet(
         const Functions::FunctionInfoList<ReturnType, ArgTypes...> &funcsInfo,
-        ArgTypes &&...funcArgs
+        ArgTypes ...funcArgs
     ) {
         // TODO: Maybe remove implementation to a CPP file and specialize it?
 
