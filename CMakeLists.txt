@@ -11,7 +11,6 @@ add_executable(BehTavan
     ./src/main.cpp
     ./src/input.cpp
     ./src/output.cpp
-    ./src/execution.cpp
 
     ./src/console-table/standard-console-table.cpp
     ./src/console-table/execution-result-table.cpp
