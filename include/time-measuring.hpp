@@ -5,6 +5,7 @@
 #include <chrono>
 #include <stdexcept>
 
+#include "types.hpp"
 #include "functions/base.hpp"
 
 namespace BehTavan::TimeMeasuring
@@ -20,7 +21,7 @@ namespace BehTavan::TimeMeasuring
         using Nanoseconds = std::chrono::nanoseconds;
     }
 
-    using ExecutionTime = size_t;
+    using ExecutionTime = Types::UInt64;
 
     /**
      * Returns a printable human-readable full time unit, in singular and lowercase manner.
