@@ -12,7 +12,7 @@ namespace BehTavan
     /**
      * Console table specifically for representing execution time results.
      */
-    template<typename FuncReturnType, typename ...FuncArgTypes>
+    template<size_t funcsSize, typename FuncReturnType, typename ...FuncArgTypes>
     class ExecutionResultTable: public StandardConsoleTable
     {
         public:
@@ -25,43 +25,53 @@ namespace BehTavan
              * @param funcsInfo Information list of functions being worked on.
              */
             inline ExecutionResultTable(
-                const std::string &&topLeftCellContent,
-                const FunctionInfoList<FuncReturnType, FuncArgTypes...> &funcsInfo
-            );
-
-            template<typename Value, const size_t timesCount>
-            inline void addRow(
-                Value variableInputValue,
-                ExecutionTimeArray<timesCount> &&timesResult
+                std::string &&topLeftCellContent,
+                const FunctionInfoArray<
+                    funcsSize,
+                    FuncReturnType,
+                    FuncArgTypes...
+                > &funcsInfo
             ) {
-                // Make sure cells count remain constant in each row
-                if (timesCount != this->coreColCount) {
-                    throw std::invalid_argument("Times");
-                }
+                this->addHeader(funcsInfo);
+            }
 
+            /**
+             * Add a new row, consisting a new record.
+             *
+             * @param recordInputValue The first cell value, which is the variable input
+             * changing between records.
+             * @param execTimes Execution times of each function, sorted as the functions
+             * information passed to the constructor.
+             */
+            template<typename Value>
+            inline void addRow(
+                Value recordInputValue,
+                ExecutionTimeArray<funcsSize> &&execTimes
+            ) {
                 // First cell
-                (*this)[0] = variableInputValue;
+                (*this)[this->curRow][0] = recordInputValue;
 
-                for (size_t i = 1; i <= timesCount; i++) {
-                    (*this)[i] = timesResult[i - 1];
+                for (size_t i = 0; i < funcsSize; i++) {
+                    (*this)[this->curRow][i + 1] = execTimes[i];
                 }
+
+                // Go to next row, for the next call
+                this->curRow++;
             }
 
         protected:
             using StandardConsoleTable::addRow;
 
         private:
-            /*
-             * When adding new rows, the input must be in a way that, cell count of each
-             * row must remain constant, which is the functions count given at construction
-             * time.
-             */
-            const size_t coreColCount = 0;
+            size_t curRow = 1;
 
             /**
              * Fills the header of the given table.
              */
-            void addHeader(FunctionInfoList<FuncReturnType, FuncArgTypes...> &&funcsInfo);
+            void addHeader(
+                std::string &&topLeftCellContent,
+                FunctionInfoArray<funcsSize, FuncReturnType, FuncArgTypes...> &&funcsInfo
+            );
     };
 }
 

@@ -3,28 +3,14 @@
 using namespace BehTavan;
 using BehTavan::ExecutionResultTable;
 
-template<typename FuncReturnType, typename ...FuncArgTypes>
-ExecutionResultTable::ExecutionResultTable(
-    const std::string &&topLeftCellContent,
-    const FunctionInfoList<FuncReturnType, FuncArgTypes...> &funcsInfo
-): colSize(funcsInfo.size())
-{
-    this->addHeader(funcsInfo);
-}
-
-template<typename FuncReturnType, typename ...FuncArgTypes>
+template<size_t funcsSize, typename FuncReturnType, typename ...FuncArgTypes>
 void ExecutionResultTable::addHeader(
-    FunctionInfoList<FuncReturnType, FuncArgTypes...> &&powerFuncsInfo
+    std::string &&topLeftCellContent,
+    Functions::FunctionInfoArray<funcsSize, FuncReturnType, FuncArgTypes...> &&funcsInfo
 ) {
-    std::vector<std::string> headerCells;
-    headerCells.reserve(powerFuncsInfo.size() + 1);
+    (*this)[0][0] = topLeftCellContent;
 
-    // The top left table cell
-    headerCells.push_back("");
-
-    for (const PowerFunctionInfo &i : powerFuncsInfo) {
-        headerCells.push_back(i.name);
+    for (size_t i = 0; i < funcsSize; i++) {
+        (*this)[0][i + 1] = funcsInfo[i];
     }
-
-    this->addRow(headerCells);
 }
