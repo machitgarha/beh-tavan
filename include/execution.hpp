@@ -1,8 +1,6 @@
 #ifndef BEH_TAVAN_EXECUTION_PROVIDER_HPP
 #define BEH_TAVAN_EXECUTION_PROVIDER_HPP
 
-#include <vector>
-
 #include "time-measuring.hpp"
 #include "functions/base.hpp"
 
@@ -10,8 +8,13 @@ namespace BehTavan
 {
     using namespace TimeMeasuring;
 
-    // A set of execution times
-    using ExecutionTimeVector = std::vector<ExecutionTime>;
+    /*
+     * A list of execution times. As the function information list is constant, so its size
+     * is constant too, thus, it is more efficient to use arrays instead of other
+     * containers (e.g. vectors).
+     */
+    template<size_t size>
+    using ExecutionTimeArray = std::array<ExecutionTime, size>;
 
     /**
      * Returns execution times of a group of functions, for the given input.
@@ -21,18 +24,18 @@ namespace BehTavan
      * template argument), sorted the same as input function list.
      */
     template<typename TimeUnit, typename ReturnType, typename ...ArgTypes>
-    inline ExecutionTimeVector getFuncExecTimeSet(
+    inline auto getFuncExecTimeSet(
         const Functions::FunctionInfoList<ReturnType, ArgTypes...> &funcsInfo,
         ArgTypes ...funcArgs
-    ) {
+    ) -> ExecutionTimeArray<funcsInfo.size()> {
         // TODO: Maybe remove implementation to a CPP file and specialize it?
 
         // Function type of each function
         using FunctionType = typename
             Functions::FunctionInfo<ReturnType, ArgTypes...>::FunctionType;
 
-        // We know the count of elements in the vector (i.e. is constant)
-        ExecutionTimeVector times(funcsInfo.size());
+        const size_t funcsCount = funcsInfo.size();
+        ExecutionTimeArray<funcsCount> times;
 
         /*
          * To ensure all functions produce the same output, we must compare their outputs
@@ -49,9 +52,8 @@ namespace BehTavan
          */
         ReturnType prevOutput = 0, curOutput = 0;
         bool isFirstElement = true;
-        ExecutionTime tmpTime;
 
-        for (const FunctionType &func : funcsInfo) {
+        for (size_t i = 0; i < funcsCount; i++) {
             /*
              * Handle void functions explicitly, as the arguments count differ with the
              * non-void ones. The later have to get the output, but the former not.
@@ -64,16 +66,14 @@ namespace BehTavan
              * duplicated. If you wonder why, try doing that.
              */
             if constexpr (std::is_void_v<ReturnType>) {
-                tmpTime = getFuncExecTime<TimeUnit, ArgTypes...>(
-                    func.pointer, std::forward<ArgTypes>(funcArgs)...
+                times[i] = getFuncExecTime<TimeUnit, ArgTypes...>(
+                    funcsInfo[i].pointer, std::forward<ArgTypes>(funcArgs)...
                 );
             } else {
-                tmpTime = getFuncExecTime<TimeUnit, ReturnType, ArgTypes...>(
-                    func.pointer, curOutput, std::forward<ArgTypes>(funcArgs)...
+                times[i] = getFuncExecTime<TimeUnit, ReturnType, ArgTypes...>(
+                    funcsInfo[i].pointer, curOutput, std::forward<ArgTypes>(funcArgs)...
                 );
             }
-
-            times.push_back(tmpTime);
 
             // Ensure all outputs are equal
             if (!isFirstElement && prevOutput != curOutput) {
