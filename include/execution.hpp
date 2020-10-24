@@ -23,19 +23,22 @@ namespace BehTavan
      * @return List of execution times of the functions, in the specified unit (i.e. via
      * template argument), sorted the same as input function list.
      */
-    template<typename TimeUnit, typename ReturnType, typename ...ArgTypes>
-    inline auto getFuncExecTimeSet(
-        const Functions::FunctionInfoList<ReturnType, ArgTypes...> &funcsInfo,
+    template<
+        typename TimeUnit,
+        const size_t funcsSize,
+        typename ReturnType,
+        typename ...ArgTypes
+    > inline ExecutionTimeArray<funcsSize> getFuncExecTimeSet(
+        const Functions::FunctionInfoArray<funcsSize, ReturnType, ArgTypes...> &funcsInfo,
         ArgTypes ...funcArgs
-    ) -> ExecutionTimeArray<funcsInfo.size()> {
+    ) {
         // TODO: Maybe remove implementation to a CPP file and specialize it?
 
         // Function type of each function
         using FunctionType = typename
             Functions::FunctionInfo<ReturnType, ArgTypes...>::FunctionType;
 
-        const size_t funcsCount = funcsInfo.size();
-        ExecutionTimeArray<funcsCount> times;
+        constexpr ExecutionTimeArray<funcsSize> times;
 
         /*
          * To ensure all functions produce the same output, we must compare their outputs
@@ -53,7 +56,7 @@ namespace BehTavan
         ReturnType prevOutput = 0, curOutput = 0;
         bool isFirstElement = true;
 
-        for (size_t i = 0; i < funcsCount; i++) {
+        for (size_t i = 0; i < funcsSize; i++) {
             /*
              * Handle void functions explicitly, as the arguments count differ with the
              * non-void ones. The later have to get the output, but the former not.
