@@ -24,7 +24,7 @@ NumberType Input::getNumber(Name name, NumberType defaultValue, bool interactive
 template<typename NumberType>
 Collection<NumberType> &Input::getNumberCollection(
     Name name,
-    const Collection<NumberType> &defaultValue,
+    Collection<NumberType> &&defaultValue,
     bool interactive
 ) {
     if (!interactive) {
