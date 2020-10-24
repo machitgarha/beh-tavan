@@ -1,7 +1,7 @@
 #ifndef BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
 #define BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
 
-#include <initializer_list>
+#include <vector>
 #include <functional>
 #include <string>
 
@@ -10,8 +10,8 @@
 
 namespace BehTavan::Functions
 {
-    template<typename T>
-    using List = std::initializer_list<T>;
+    template<typename T, size_t size>
+    using Array = std::array<T, size>;
 
     /**
      * Container for information about a function. It contains two properties, function's
@@ -31,8 +31,8 @@ namespace BehTavan::Functions
         std::string name;
     };
 
-    template<typename ReturnType, typename ...ArgTypes>
-    using FunctionInfoList = List<FunctionInfo<ReturnType, ArgTypes...>>;
+    template<size_t size, typename ReturnType, typename ...ArgTypes>
+    using FunctionInfoArray = Array<FunctionInfo<ReturnType, ArgTypes...>, size>;
 }
 
 #endif // BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP

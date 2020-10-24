@@ -24,12 +24,13 @@ namespace BehTavan::Functions::Power
     Result powerOptimized(Base base, Exponent exponent);
 
 
-    using PowerFunctionInfoList = FunctionInfoList<Result, Base, Exponent>;
+    template<size_t size>
+    using PowerFunctionInfoArray = FunctionInfoArray<size, Result, Base, Exponent>;
 
     /**
      * List of information of all available power functions.
      */
-    const PowerFunctionInfoList powerFuncsInfo = {
+    const PowerFunctionInfoArray<2> powerFuncsInfo = {{
         {
             power,
             NAMEOF(power).str()
@@ -38,7 +39,7 @@ namespace BehTavan::Functions::Power
             powerOptimized,
             NAMEOF(powerOptimized).str()
         },
-    };
+    }};
 }
 
 #endif // BEH_TAVAN_POWER_HPP
