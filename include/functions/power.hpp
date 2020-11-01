@@ -1,5 +1,5 @@
-#ifndef BEH_TAVAN_POWER_HPP
-#define BEH_TAVAN_POWER_HPP
+#ifndef BEH_TAVAN_FUNCTIONS_POWER_HPP
+#define BEH_TAVAN_FUNCTIONS_POWER_HPP
 
 #include "base.hpp"
 #include "types.hpp"
@@ -42,4 +42,4 @@ namespace BehTavan::Functions::Power
     }};
 }
 
-#endif // BEH_TAVAN_POWER_HPP
+#endif // BEH_TAVAN_FUNCTIONS_POWER_HPP

@@ -1,5 +1,5 @@
-#ifndef BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
-#define BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
+#ifndef BEH_TAVAN_FUNCTIONS_BASE_HPP
+#define BEH_TAVAN_FUNCTIONS_BASE_HPP
 
 #include <vector>
 #include <functional>
@@ -36,4 +36,4 @@ namespace BehTavan::Functions
     using FunctionInfoArray = Array<FunctionInfo<ReturnType, ArgTypes...>, size>;
 }
 
-#endif // BEH_TAVAN_FUNCTIONS_COLLECTIONS_HPP
+#endif // BEH_TAVAN_FUNCTIONS_BASE_HPP
