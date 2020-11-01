@@ -41,7 +41,7 @@ namespace BehTavan::Input
      * @param interactive Whether the value is user supplied or not.
      */
     template<typename NumberType>
-    Collection<NumberType> &getNumberCollection(
+    Collection<NumberType> getNumberCollection(
         Name name,
         Collection<NumberType> &&defaultValue,
         bool interactive = true

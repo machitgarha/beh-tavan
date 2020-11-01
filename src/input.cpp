@@ -22,7 +22,7 @@ NumberType Input::getNumber(Name name, NumberType defaultValue, bool interactive
 }
 
 template<typename NumberType>
-Collection<NumberType> &Input::getNumberCollection(
+Collection<NumberType> Input::getNumberCollection(
     Name name,
     Collection<NumberType> &&defaultValue,
     bool interactive
@@ -50,3 +50,21 @@ Collection<NumberType> &Input::getNumberCollection(
         return result;
     }
 }
+
+
+/*
+ * Instantiations.
+ *
+ * TODO: Add more detailed comment here.
+ */
+
+#include "functions/base.hpp"
+using namespace BehTavan::Functions;
+
+#include "functions/power.hpp"
+template Power::Base Input::getNumber(Name, Power::Base, bool);
+template Collection<Power::Exponent> Input::getNumberCollection(
+    Name,
+    Collection<Power::Exponent> &&,
+    bool
+);
