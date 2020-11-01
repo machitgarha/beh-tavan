@@ -1,8 +1,6 @@
 #ifndef BEH_TAVAN_TYPES_HPP
 #define BEH_TAVAN_TYPES_HPP
 
-#include <vector>
-
 namespace BehTavan::Types
 {
     using Int32 = long int;
