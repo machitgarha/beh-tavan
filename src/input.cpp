@@ -5,44 +5,66 @@
 using namespace BehTavan;
 using namespace BehTavan::Input;
 
-Base Input::getBase(bool interactive)
+template<typename NumberType>
+NumberType Input::getNumber(Name name, NumberType defaultValue, bool interactive)
 {
     if (!interactive) {
-        return BASE_DEFAULT;
+        return defaultValue;
     }
 
-    Base base;
+    NumberType input;
 
-    printLine("Please enter the base (enter 0 for default):");
-    std::cin >> base;
+    printLine3("Please enter the ", name, " (0: default):");
+    std::cin >> input;
     printNewLine();
 
-    return base ?: BASE_DEFAULT;
+    return input ?: defaultValue;
 }
 
-ExponentVector Input::getExponents(bool interactive)
-{
+template<typename NumberType>
+Collection<NumberType> Input::getNumberCollection(
+    Name name,
+    Collection<NumberType> &&defaultValue,
+    bool interactive
+) {
     if (!interactive) {
-        return EXPONENTS_DEFAULT;
+        return defaultValue;
     }
 
-    ExponentVector result;
-    Exponent tmpExponent = 1;
+    Collection<NumberType> result;
+    NumberType tmpNum = 1;
 
-    printLine("Please enter the exponents (enter 0 to exit, if 0 is entered as the first");
-    printLine("input, then the default value is used):");
+    printLine3("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
 
-    std::cin >> tmpExponent;
-    while (tmpExponent != 0) {
-        result.push_back(tmpExponent);
-        std::cin >> tmpExponent;
+    std::cin >> tmpNum;
+    while (tmpNum != 0) {
+        result.push_back(tmpNum);
+        std::cin >> tmpNum;
     }
 
     printNewLine();
 
     if (result.empty()) {
-        return EXPONENTS_DEFAULT;
+        return defaultValue;
     } else {
         return result;
     }
 }
+
+
+/*
+ * Instantiations.
+ *
+ * TODO: Add more detailed comment here.
+ */
+
+#include "functions/base.hpp"
+using namespace BehTavan::Functions;
+
+#include "functions/power.hpp"
+template Power::Base Input::getNumber(Name, Power::Base, bool);
+template Collection<Power::Exponent> Input::getNumberCollection(
+    Name,
+    Collection<Power::Exponent> &&,
+    bool
+);
