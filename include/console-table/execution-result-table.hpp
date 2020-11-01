@@ -76,7 +76,13 @@ namespace BehTavan
                     FuncReturnType,
                     FuncArgTypes...
                 > &&funcsInfo
-            );
+            ) {
+                (*this)[0][0] = topLeftCellContent;
+
+                for (size_t i = 0; i < funcsSize; i++) {
+                    (*this)[0][i + 1] = funcsInfo[i].name;
+                }
+            }
     };
 }
 
