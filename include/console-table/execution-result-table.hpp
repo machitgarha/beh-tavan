@@ -21,18 +21,18 @@ namespace BehTavan
              *
              * Creates the table, and prepares the table header, based on the given input.
              *
-             * @param topLeftCellContent The title of the cell in index [0, 0].
+             * @param firstColumnName The title of the changing values in the first column.
              * @param funcsInfo Information list of functions being worked on.
              */
             inline ExecutionResultTable(
-                const std::string &&topLeftCellContent,
+                const std::string &&firstColumnName,
                 const FunctionInfoArray<
                     funcsSize,
                     FuncReturnType,
                     FuncArgTypes...
                 > &funcsInfo
             ) {
-                this->addHeader(std::move(topLeftCellContent), std::move(funcsInfo));
+                this->addHeader(std::move(firstColumnName), std::move(funcsInfo));
             }
 
             /**
@@ -63,25 +63,28 @@ namespace BehTavan
             using StandardConsoleTable::addRow;
 
         private:
-            /** Current row index */
-            size_t curRow = 1;
+            /** Current index row. First and second rows are for header. */
+            size_t curRow = 2;
 
             /**
-             * Fills the header of the given table.
+             * Fills the header of the given table, including the first two rows.
              */
             void addHeader(
-                const std::string &&topLeftCellContent,
+                const std::string &&firstColumnName,
                 const FunctionInfoArray<
                     funcsSize,
                     FuncReturnType,
                     FuncArgTypes...
                 > &&funcsInfo
             ) {
-                (*this)[0][0] = topLeftCellContent;
-
+                // First row
+                (*this)[0][0] = "Functions:";
                 for (size_t i = 0; i < funcsSize; i++) {
                     (*this)[0][i + 1] = funcsInfo[i].name;
                 }
+
+                // Second row
+                (*this)[1][0] = firstColumnName;
             }
     };
 }

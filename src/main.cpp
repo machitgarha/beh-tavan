@@ -37,7 +37,7 @@ int main()
     const Input::Collection<Power::Exponent> &&exponents = getExponents(interactive);
 
     const auto &funcsInfo = Power::powerFuncsInfo;
-    ExecutionResultTable resultTable("Functions:\n--------\nExponents", funcsInfo);
+    ExecutionResultTable resultTable("Exponents", funcsInfo);
 
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
 
