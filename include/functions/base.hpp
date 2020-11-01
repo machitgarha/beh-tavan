@@ -24,11 +24,12 @@ namespace BehTavan::Functions
     template<typename ReturnType, typename ...ArgTypes>
     struct FunctionInfo
     {
-        using FunctionType = ReturnType(ArgTypes...);
+        using FunctionType = std::function<ReturnType(ArgTypes...)>;
+        using FunctionName = std::string;
 
         // TODO: Add default value (e.g. a functor) to prevent UB
-        std::function<FunctionType> pointer;
-        std::string name;
+        FunctionType pointer;
+        FunctionName name;
     };
 
     template<size_t size, typename ReturnType, typename ...ArgTypes>
