@@ -38,7 +38,7 @@ namespace BehTavan
         using FunctionType = typename
             Functions::FunctionInfo<ReturnType, ArgTypes...>::FunctionType;
 
-        constexpr ExecutionTimeArray<funcsSize> times;
+        ExecutionTimeArray<funcsSize> times;
 
         /*
          * To ensure all functions produce the same output, we must compare their outputs

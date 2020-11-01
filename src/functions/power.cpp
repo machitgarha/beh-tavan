@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 
+using namespace BehTavan::Functions;
 using namespace BehTavan::Functions::Power;
 
 /**
