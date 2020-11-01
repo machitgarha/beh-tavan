@@ -25,14 +25,14 @@ namespace BehTavan
              * @param funcsInfo Information list of functions being worked on.
              */
             inline ExecutionResultTable(
-                std::string &&topLeftCellContent,
+                const std::string &&topLeftCellContent,
                 const FunctionInfoArray<
                     funcsSize,
                     FuncReturnType,
                     FuncArgTypes...
                 > &funcsInfo
             ) {
-                this->addHeader(funcsInfo);
+                this->addHeader(std::move(topLeftCellContent), std::move(funcsInfo));
             }
 
             /**
@@ -63,14 +63,19 @@ namespace BehTavan
             using StandardConsoleTable::addRow;
 
         private:
+            /** Current row index */
             size_t curRow = 1;
 
             /**
              * Fills the header of the given table.
              */
             void addHeader(
-                std::string &&topLeftCellContent,
-                FunctionInfoArray<funcsSize, FuncReturnType, FuncArgTypes...> &&funcsInfo
+                const std::string &&topLeftCellContent,
+                const FunctionInfoArray<
+                    funcsSize,
+                    FuncReturnType,
+                    FuncArgTypes...
+                > &&funcsInfo
             );
     };
 }

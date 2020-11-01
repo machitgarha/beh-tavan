@@ -1,12 +1,15 @@
 #include "console-table/execution-result-table.hpp"
 
 using namespace BehTavan;
-using BehTavan::ExecutionResultTable;
 
 template<size_t funcsSize, typename FuncReturnType, typename ...FuncArgTypes>
-void ExecutionResultTable::addHeader(
-    std::string &&topLeftCellContent,
-    Functions::FunctionInfoArray<funcsSize, FuncReturnType, FuncArgTypes...> &&funcsInfo
+void ExecutionResultTable<funcsSize, FuncReturnType, FuncArgTypes...>::addHeader(
+    const std::string &&topLeftCellContent,
+    const Functions::FunctionInfoArray<
+        funcsSize,
+        FuncReturnType,
+        FuncArgTypes...
+    > &&funcsInfo
 ) {
     (*this)[0][0] = topLeftCellContent;
 
