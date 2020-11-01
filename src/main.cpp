@@ -10,7 +10,7 @@
 using namespace BehTavan;
 using namespace BehTavan::Functions;
 
-#define BASE_DEFAULT 3
+#define BASE_DEFAULT static_cast<Power::Base>(3)
 #define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
 
 int main()
@@ -19,15 +19,17 @@ int main()
 
     const bool interactive = Env::isInteractive();
 
-    const Power::Base base = Input::getNumber("base", BASE_DEFAULT, interactive);
-    auto &&exponents =
+    const Power::Base &&base = Input::getNumber<Power::Base>(
+        "base", BASE_DEFAULT, interactive
+    );
+    const Input::Collection<Power::Exponent> &&exponents =
         Input::getNumberCollection<Power::Exponent>(
             "exponent", EXPONENTS_DEFAULT, interactive
         )
     ;
 
     const auto &funcsInfo = Power::powerFuncsInfo;
-    ExecutionResultTable resultTable(funcsInfo);
+    ExecutionResultTable resultTable("\nExponents", funcsInfo);
 
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
 
@@ -41,8 +43,8 @@ int main()
         for (Power::Exponent exponent : exponents) {
             resultTable.addRow(
                 exponent,
-                getFuncExecTimeSet<TimeUnit, Power::Result>(
-                    funcsInfo, base, exponent
+                getFuncExecTimeSet<TimeUnit>(
+                    funcsInfo, std::move(base), std::move(exponent)
                 )
             );
         }
