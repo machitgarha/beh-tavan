@@ -3,7 +3,6 @@
 
 #include "base.hpp"
 #include "types.hpp"
-#include <type_traits>
 
 namespace BehTavan::Functions::Power
 {
