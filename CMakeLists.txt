@@ -15,6 +15,9 @@ add_executable(BehTavan
 
     # Functions
     ./src/functions/power.cpp
+
+    # Workflows
+    ./src/workflows/power.cpp
 )
 
 target_include_directories(BehTavan PUBLIC
