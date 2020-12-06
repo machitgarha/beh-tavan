@@ -16,9 +16,6 @@
 
 namespace BehTavan::Workflows
 {
-    using namespace Functions;
-    using namespace std;
-
     class PowerWorkflow: public BaseWorkflow
     {
         public:
@@ -33,17 +30,17 @@ namespace BehTavan::Workflows
             bool isInteractive;
 
             // TODO: Make interactive a class property
-            static inline Power::Base getBase(bool interactive)
+            inline Power::Base getBase()
             {
                 return Input::getNumber<Power::Base>(
-                    "base", BASE_DEFAULT, interactive
+                    "base", BASE_DEFAULT, this->isInteractive
                 );
             }
 
-            static inline Input::Collection<Power::Exponent> getExponents(bool interactive)
+            inline Input::Collection<Power::Exponent> getExponents()
             {
                 return Input::getNumberCollection<Power::Exponent>(
-                    "exponent", EXPONENTS_DEFAULT, interactive
+                    "exponent", EXPONENTS_DEFAULT, this->isInteractive
                 );
             }
     };

@@ -4,9 +4,8 @@ using namespace BehTavan::Workflows;
 
 void PowerWorkflow::run()
 {
-    const Power::Base &&base = this->getBase(this->isInteractive);
-    const Input::Collection<Power::Exponent> &&exponents =
-        this->getExponents(this->isInteractive);
+    const Power::Base &&base = this->getBase();
+    const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
 
     const auto &funcsInfo = Power::powerFuncsInfo;
     ExecutionResultTable resultTable("Exponents", funcsInfo);
