@@ -2,13 +2,11 @@
 
 using namespace BehTavan::Workflows;
 
-PowerWorkflow::PowerWorkflow()
+void PowerWorkflow::run()
 {
-    const bool interactive = Env::isInteractive();
-
-    const Power::Base &&base = this->getBase(interactive);
+    const Power::Base &&base = this->getBase(this->isInteractive);
     const Input::Collection<Power::Exponent> &&exponents =
-        this->getExponents(interactive);
+        this->getExponents(this->isInteractive);
 
     const auto &funcsInfo = Power::powerFuncsInfo;
     ExecutionResultTable resultTable("Exponents", funcsInfo);

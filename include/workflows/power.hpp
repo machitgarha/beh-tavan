@@ -9,7 +9,6 @@
 #include "execution.hpp"
 #include "console-table/execution-result-table.hpp"
 
-
 #include "functions/power.hpp"
 
 #define BASE_DEFAULT 3
@@ -23,9 +22,16 @@ namespace BehTavan::Workflows
     class PowerWorkflow: public BaseWorkflow
     {
         public:
-            PowerWorkflow();
+            inline PowerWorkflow():
+                isInteractive(Env::isInteractive())
+            {
+            };
+
+            virtual void run();
 
         private:
+            bool isInteractive;
+
             // TODO: Make interactive a class property
             static inline Power::Base getBase(bool interactive)
             {

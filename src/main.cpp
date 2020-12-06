@@ -7,7 +7,8 @@ int main()
 {
     Output::printStartMessage();
 
-    Workflows::PowerWorkflow x;
+    Workflows::PowerWorkflow w;
+    w.run();
 
     return 0;
 }
