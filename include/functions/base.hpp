@@ -13,22 +13,29 @@
 namespace BehTavan::Functions
 {
     /**
-     * Container for information about a function. It contains two properties, function's
-     * name and its pointer.
-     *
-     * As the function can be whatever, so the pointer is not a constant thing. Thus, we
-     * must use a generic form, so for each function it can be narrowed for that specific
-     * use case.
+     * Container storing function information.
      */
     template<typename ReturnType, typename ...ArgTypes>
-    struct FunctionInfo
+    class FunctionInfo
     {
-        using FunctionType = std::function<ReturnType(ArgTypes...)>;
-        using FunctionName = std::string;
+        public:
+            using FunctionType = std::function<ReturnType(ArgTypes...)>;
+            using FunctionName = std::string;
 
-        // TODO: Add default value (e.g. a functor) to prevent UB
-        FunctionType pointer;
-        FunctionName name;
+            FunctionInfo(FunctionType f, FunctionName fName):
+                func(f),
+                name(fName)
+            {
+                if (!f) {
+                    throw std::invalid_argument("Function must not be empty");
+                }
+                if (fName.empty()) {
+                    throw std::invalid_argument("Function name must not be empty");
+                }
+            }
+
+            const FunctionType func;
+            const FunctionName name;
     };
 
     template<size_t size, typename ReturnType, typename ...ArgTypes>

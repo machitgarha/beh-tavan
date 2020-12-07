@@ -70,11 +70,11 @@ namespace BehTavan
              */
             if constexpr (std::is_void_v<ReturnType>) {
                 times[i] = getFuncExecTime<TimeUnit, ArgTypes...>(
-                    funcsInfo[i].pointer, std::forward<ArgTypes>(funcArgs)...
+                    funcsInfo[i].func, std::forward<ArgTypes>(funcArgs)...
                 );
             } else {
                 times[i] = getFuncExecTime<TimeUnit, ReturnType, ArgTypes...>(
-                    funcsInfo[i].pointer, curOutput, std::forward<ArgTypes>(funcArgs)...
+                    funcsInfo[i].func, curOutput, std::forward<ArgTypes>(funcArgs)...
                 );
             }
 
