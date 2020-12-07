@@ -1,4 +1,4 @@
-#include "functions/sorting/bubble-sort.hpp"
+#include "functions/sorting.hpp"
 
 using namespace BehTavan::Functions;
 

@@ -1,11 +1,11 @@
-#include "functions/sorting/counting-sort.hpp"
+#include "functions/sorting.hpp"
 
 #include <algorithm>
 
-using namespace BehTavan::Functions::Sorting;
+using namespace BehTavan::Functions;
 
 template<typename T>
-void countingSort(std::vector<T> &arr)
+void Sorting::countingSort(std::vector<T> &arr)
 {
     if (arr.empty()) {
         return;
