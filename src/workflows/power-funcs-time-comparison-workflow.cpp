@@ -1,6 +1,7 @@
 #include "workflows/power-funcs-time-comparison-workflow.hpp"
 
 using namespace BehTavan::Workflows;
+using namespace BehTavan::TimeMeasuring;
 
 void PowerFuncsTimeComparisonWorkflow::run()
 {
