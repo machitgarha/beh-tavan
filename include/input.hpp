@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "output.hpp"
+
 namespace BehTavan::Input
 {
     /*
@@ -27,11 +29,20 @@ namespace BehTavan::Input
      * @param interactive Whether the value is user supplied or not.
      */
     template<typename NumberType>
-    NumberType getNumber(
-        Name name,
-        NumberType defaultValue,
-        bool interactive = true
-    );
+    NumberType getNumber(Name name, NumberType defaultValue, bool interactive)
+    {
+        if (!interactive) {
+            return defaultValue;
+        }
+
+        NumberType input;
+
+        printLine3("Please enter the ", name, " (0: default):");
+        std::cin >> input;
+        printNewLine();
+
+        return input ?: defaultValue;
+    }
 
     /**
      * Returns a collection of numbers, and if needed, gets it from the user.
@@ -44,8 +55,31 @@ namespace BehTavan::Input
     Collection<NumberType> getNumberCollection(
         Name name,
         Collection<NumberType> &&defaultValue,
-        bool interactive = true
-    );
+        bool interactive
+    ) {
+        if (!interactive) {
+            return defaultValue;
+        }
+
+        Collection<NumberType> result;
+        NumberType tmpNum = 1;
+
+        printLine3("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
+
+        std::cin >> tmpNum;
+        while (tmpNum != 0) {
+            result.push_back(tmpNum);
+            std::cin >> tmpNum;
+        }
+
+        printNewLine();
+
+        if (result.empty()) {
+            return defaultValue;
+        } else {
+            return result;
+        }
+    }
 }
 
 #endif // BEH_TAVAN_INPUT_HPP
