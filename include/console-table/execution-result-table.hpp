@@ -2,12 +2,12 @@
 #define BEH_TAVAN_EXECUTION_RESULT_TABLE_HPP
 
 #include "standard-console-table.hpp"
-#include "execution.hpp"
-#include "functions/base.hpp"
+#include "function-info.hpp"
+#include "time-measuring.hpp"
 
 namespace BehTavan
 {
-    using namespace Functions;
+    using namespace TimeMeasuring;
 
     /**
      * Console table specifically for representing execution time results.
@@ -26,8 +26,7 @@ namespace BehTavan
              */
             inline ExecutionResultTable(
                 const std::string &&firstColumnName,
-                const FunctionInfoArray<
-                    funcsSize,
+                const FunctionInfoVector<
                     FuncReturnType,
                     FuncArgTypes...
                 > &funcsInfo
@@ -71,8 +70,7 @@ namespace BehTavan
              */
             void addHeader(
                 const std::string &&firstColumnName,
-                const FunctionInfoArray<
-                    funcsSize,
+                const FunctionInfoVector<
                     FuncReturnType,
                     FuncArgTypes...
                 > &&funcsInfo

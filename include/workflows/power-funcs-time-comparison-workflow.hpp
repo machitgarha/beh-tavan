@@ -7,7 +7,6 @@
 #include "output.hpp"
 #include "env.hpp"
 #include "types.hpp"
-#include "execution.hpp"
 #include "console-table/execution-result-table.hpp"
 
 #include "functions/power.hpp"
