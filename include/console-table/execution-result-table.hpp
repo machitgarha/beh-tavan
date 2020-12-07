@@ -7,8 +7,6 @@
 
 namespace BehTavan
 {
-    using namespace TimeMeasuring;
-
     /**
      * Console table specifically for representing execution time results.
      */
@@ -46,7 +44,7 @@ namespace BehTavan
             template<typename Value>
             inline void addRow(
                 Value recordInputValue,
-                ExecutionTimeVector &&execTimes
+                TimeMeasuring::ExecutionTimeVector &&execTimes
             ) {
                 if (execTimes.size() != colCount) {
                     throw std::invalid_argument(
