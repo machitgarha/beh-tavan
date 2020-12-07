@@ -1,5 +1,5 @@
-#ifndef BEH_TAVAN_FUNCTIONS_BASE_HPP
-#define BEH_TAVAN_FUNCTIONS_BASE_HPP
+#ifndef BEH_TAVAN_FUNCTIONS_INFO_HPP
+#define BEH_TAVAN_FUNCTIONS_INFO_HPP
 
 #include <functional>
 #include <stdexcept>
@@ -45,4 +45,4 @@ namespace BehTavan
     using FunctionInfoVector = std::vector<FunctionInfo<ReturnType, ArgTypes...>>;
 }
 
-#endif // BEH_TAVAN_FUNCTIONS_BASE_HPP
+#endif // BEH_TAVAN_FUNCTIONS_INFO_HPP
