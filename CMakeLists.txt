@@ -17,7 +17,7 @@ add_executable(BehTavan
     ./src/functions/power.cpp
 
     # Workflows
-    ./src/workflows/power.cpp
+    ./src/workflows/power-funcs-time-comparison-workflow.cpp
 )
 
 target_include_directories(BehTavan PUBLIC

@@ -7,7 +7,7 @@ void PowerFuncsTimeComparisonWorkflow::run()
     const Power::Base &&base = this->getBase();
     const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
 
-    const CurFunctionInfoVector &funcsInfo = this->getFunctions();
+    const CurFunctionInfoVector &funcsInfo = this->getFunctionsInfo();
     ExecutionResultTable resultTable("Exponents", funcsInfo);
 
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
