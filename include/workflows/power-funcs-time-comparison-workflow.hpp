@@ -34,9 +34,9 @@ namespace BehTavan::Workflows
             virtual void run();
 
         protected:
-            virtual inline const FunctionInfoVector &getFunctionsInfo() const noexcept
+            virtual inline const CurFunctionInfoVector &getFunctionsInfo() const noexcept
             {
-                static const FunctionInfoVector funcs = {
+                static const CurFunctionInfoVector funcs = {
                     {
                         Power::power,
                         NAMEOF(Power::power).str()

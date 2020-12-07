@@ -25,11 +25,10 @@ namespace BehTavan
      */
     template<
         typename TimeUnit,
-        const size_t funcsSize,
         typename ReturnType,
         typename ...ArgTypes
     > inline ExecutionTimeArray<funcsSize> getFuncExecTimeSet(
-        const Functions::FunctionInfoArray<funcsSize, ReturnType, ArgTypes...> &funcsInfo,
+        const FunctionInfo<funcsSize, ReturnType, ArgTypes...> &funcsInfo,
         ArgTypes ...funcArgs
     ) {
         // TODO: Maybe remove implementation to a CPP file and specialize it?

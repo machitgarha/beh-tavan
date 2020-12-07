@@ -1,12 +1,10 @@
 #ifndef BEH_TAVAN_FUNCTIONS_BASE_HPP
 #define BEH_TAVAN_FUNCTIONS_BASE_HPP
 
-#include <vector>
 #include <functional>
+#include <stdexcept>
 #include <string>
-
-// For children only
-#include "nameof.hpp"
+#include <vector>
 
 namespace BehTavan
 {
@@ -35,6 +33,16 @@ namespace BehTavan
             const FunctionType func;
             const FunctionName name;
     };
+
+    /**
+     * A set of functions information.
+     *
+     * There is a trade-off between memory and time benefit of arrays, and ease of  use of
+     * vectors. As the overhead of vectors in this case is pretty much negligible, for
+     * writing less code and make things simpler, vector is being used.
+     */
+    template<typename ReturnType, typename ...ArgTypes>
+    using FunctionInfoVector = std::vector<FunctionInfo<ReturnType, ArgTypes...>>;
 }
 
 #endif // BEH_TAVAN_FUNCTIONS_BASE_HPP

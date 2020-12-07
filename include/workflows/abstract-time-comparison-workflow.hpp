@@ -14,21 +14,14 @@ namespace BehTavan::Workflows
     {
         protected:
             /**
-             * A set of functions information.
-             *
-             * There is a trade-off between memory and time benefit of arrays, and ease of
-             * use of vectors. As the overhead of vectors in this case is pretty much
-             * negligible, for writing less code and make things simpler, vector is being
-             * used.
+             * A type to hold functions information based on the specified prototype.
              */
-            using FunctionInfoVector = std::vector<
-                FunctionInfo<ReturnType, ArgTypes...>
-            >;
+            using CurFunctionInfoVector = FunctionInfoVector<ReturnType, ArgTypes...>;
 
             /**
              * Returns the functions information to be executed and measured.
              */
-            virtual const FunctionInfoVector &getFunctionsInfo() const noexcept = 0;
+            virtual const CurFunctionInfoVector &getFunctionsInfo() const noexcept = 0;
     };
 }
 
