@@ -12,7 +12,7 @@ namespace BehTavan
     /**
      * Console table specifically for representing execution time results.
      */
-    template<size_t funcsSize, typename FuncReturnType, typename ...FuncArgTypes>
+    template<typename FuncReturnType, typename ...FuncArgTypes>
     class ExecutionResultTable: public StandardConsoleTable
     {
         public:
@@ -30,7 +30,8 @@ namespace BehTavan
                     FuncReturnType,
                     FuncArgTypes...
                 > &funcsInfo
-            ) {
+            ): colCount(funcsInfo.size())
+            {
                 this->addHeader(std::move(firstColumnName), std::move(funcsInfo));
             }
 
@@ -47,10 +48,16 @@ namespace BehTavan
                 Value recordInputValue,
                 ExecutionTimeVector &&execTimes
             ) {
+                if (execTimes.size() != colCount) {
+                    throw std::invalid_argument(
+                        "Execution times count does not equal functions count"
+                    );
+                }
+
                 // First cell
                 (*this)[this->curRow][0] = recordInputValue;
 
-                for (size_t i = 0; i < funcsSize; i++) {
+                for (size_t i = 0; i < colCount; i++) {
                     (*this)[this->curRow][i + 1] = execTimes[i];
                 }
 
@@ -62,6 +69,9 @@ namespace BehTavan
             using StandardConsoleTable::addRow;
 
         private:
+            /** Column count, based on the number of functions. */
+            const size_t colCount;
+
             /** Current index row. First and second rows are for header. */
             size_t curRow = 2;
 

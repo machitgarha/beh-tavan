@@ -8,7 +8,6 @@
 #include "env.hpp"
 #include "types.hpp"
 #include "console-table/execution-result-table.hpp"
-
 #include "functions/power.hpp"
 
 // TODO: Move into the class

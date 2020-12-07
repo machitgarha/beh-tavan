@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 # Source files
 add_executable(BehTavan
     ./src/main.cpp
-    ./src/input.cpp
     ./src/output.cpp
     ./src/console-table/standard-console-table.cpp
 
