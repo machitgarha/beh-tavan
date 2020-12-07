@@ -1,7 +1,7 @@
 #ifndef BEH_TAVAN_WORKFLOWS_POWER_HPP
 #define BEH_TAVAN_WORKFLOWS_POWER_HPP
 
-#include "abstract-workflow.hpp"
+#include "abstract-time-comparison-workflow.hpp"
 
 #include "input.hpp"
 #include "output.hpp"
@@ -17,10 +17,15 @@
 
 namespace BehTavan::Workflows
 {
-    class PowerWorkflow: public AbstractWorkflow
-    {
+    using namespace Functions;
+
+    class PowerFuncsTimeComparisonWorkflow: public AbstractTimeComparisonWorkflow<
+        Power::Result,
+        Power::Base,
+        Power::Exponent
+    > {
         public:
-            inline PowerWorkflow():
+            inline PowerFuncsTimeComparisonWorkflow():
                 isInteractive(Env::isInteractive())
             {
             };

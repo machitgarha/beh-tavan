@@ -6,12 +6,10 @@
 #include <stdexcept>
 
 #include "types.hpp"
-#include "functions/base.hpp"
+#include "function-info.hpp"
 
 namespace BehTavan::TimeMeasuring
 {
-    using namespace Functions;
-
     // Time units
     namespace TimeUnit
     {

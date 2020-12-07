@@ -1,7 +1,7 @@
 #ifndef BEH_TAVAN_TYPES_HPP
 #define BEH_TAVAN_TYPES_HPP
 
-#include <array>
+#include <vector>
 
 namespace BehTavan::Types
 {
@@ -10,9 +10,6 @@ namespace BehTavan::Types
 
     using UInt32 = unsigned long int;
     using UInt64 = unsigned long long int;
-
-    template<typename T, std::size_t size>
-    using Array = std::array<T, size>;
 }
 
 #endif // BEH_TAVAN_TYPES_HPP

@@ -2,7 +2,7 @@
 #define BEH_TAVAN_EXECUTION_PROVIDER_HPP
 
 #include "time-measuring.hpp"
-#include "functions/base.hpp"
+#include "function-info.hpp"
 
 namespace BehTavan
 {

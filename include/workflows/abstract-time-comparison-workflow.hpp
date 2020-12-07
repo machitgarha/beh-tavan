@@ -30,7 +30,6 @@ namespace BehTavan::Workflows
              */
             virtual const FunctionInfoVector &getFunctions() = 0;
     };
-
 }
 
 #endif // BEH_TAVAN_WORKFLOWS_COMPARISON_HPP

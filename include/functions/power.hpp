@@ -1,8 +1,7 @@
 #ifndef BEH_TAVAN_FUNCTIONS_POWER_HPP
 #define BEH_TAVAN_FUNCTIONS_POWER_HPP
 
-#include "base.hpp"
-#include "types.hpp"
+#include "function-info.hpp"
 
 namespace BehTavan::Functions::Power
 {
@@ -11,6 +10,8 @@ namespace BehTavan::Functions::Power
     // Arguments types
     using Base = BehTavan::Types::Int32;
     using Exponent = BehTavan::Types::UInt32;
+    // Function information
+    using PowerFunctionInfo = FunctionInfo<Result, Base, Exponent>;
 
     /**
      * Powers an integer to an integer, using a normal algorithm.
