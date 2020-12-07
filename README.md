@@ -49,8 +49,8 @@ You should be able to run this project just anywhere: Linux, OS X, Windows or BS
 
 ### Tested Environments
 
--   OS: Linux, Fedora Workstation 32
-    Compiler: GCC C++ Compiler
+-   OS: Linux, Fedora Workstation 33
+    Compiler: GCC C++ Compiler (10.2.1)
 
 ## Documentation
 
