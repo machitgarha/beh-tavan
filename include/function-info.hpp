@@ -5,12 +5,10 @@
 #include <functional>
 #include <string>
 
-#include "types.hpp"
-
 // For children only
 #include "nameof.hpp"
 
-namespace BehTavan::Functions
+namespace BehTavan
 {
     /**
      * Container storing function information.
@@ -37,9 +35,6 @@ namespace BehTavan::Functions
             const FunctionType func;
             const FunctionName name;
     };
-
-    template<size_t size, typename ReturnType, typename ...ArgTypes>
-    using FunctionInfoArray = Types::Array<FunctionInfo<ReturnType, ArgTypes...>, size>;
 }
 
 #endif // BEH_TAVAN_FUNCTIONS_BASE_HPP
