@@ -103,8 +103,7 @@ namespace BehTavan::TimeMeasuring
      * is constant too, thus, it is more efficient to use arrays instead of other
      * containers (e.g. vectors).
      */
-    template<size_t size>
-    using ExecutionTimeArray = std::array<ExecutionTime, size>;
+    using ExecutionTimeVector = std::vector<ExecutionTime>;
 
     /**
      * Returns execution times of a group of functions, for the given input.
@@ -117,17 +116,17 @@ namespace BehTavan::TimeMeasuring
         typename TimeUnit,
         typename ReturnType,
         typename ...ArgTypes
-    > inline auto getFuncExecTimeSet(
+    > inline ExecutionTimeVector getFuncExecTimeSet(
         const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo,
         ArgTypes ...funcArgs
-    ) -> ExecutionTimeArray<funcsInfo.size()> {
+    ) {
         // TODO: Maybe remove implementation to a CPP file and specialize it?
 
         // Function type of each function
         using FunctionType = typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType;
 
         const size_t funcsInfoSize = funcsInfo.size();
-        ExecutionTimeArray<funcsInfoSize> times;
+        ExecutionTimeVector times(funcsInfoSize);
 
         /*
          * To ensure all functions produce the same output, we must compare their outputs

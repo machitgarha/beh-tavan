@@ -45,7 +45,7 @@ namespace BehTavan
             template<typename Value>
             inline void addRow(
                 Value recordInputValue,
-                ExecutionTimeArray<funcsSize> &&execTimes
+                ExecutionTimeVector &&execTimes
             ) {
                 // First cell
                 (*this)[this->curRow][0] = recordInputValue;
