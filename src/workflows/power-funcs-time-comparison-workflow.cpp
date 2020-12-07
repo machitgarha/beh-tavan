@@ -1,13 +1,13 @@
-#include "workflows/power.hpp"
+#include "workflows/power-funcs-time-comparison-workflow.hpp"
 
 using namespace BehTavan::Workflows;
 
-void PowerWorkflow::run()
+void PowerFuncsTimeComparisonWorkflow::run()
 {
     const Power::Base &&base = this->getBase();
     const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
 
-    const auto &funcsInfo = Power::powerFuncsInfo;
+    const FunctionInfoVector &funcsInfo = this->getFunctions();
     ExecutionResultTable resultTable("Exponents", funcsInfo);
 
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
