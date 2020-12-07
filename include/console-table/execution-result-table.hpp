@@ -57,7 +57,7 @@ namespace BehTavan
                 // First cell
                 (*this)[this->curRow][0] = recordInputValue;
 
-                for (size_t i = 0; i < colCount; i++) {
+                for (size_t i = 0; i < this->colCount; i++) {
                     (*this)[this->curRow][i + 1] = execTimes[i];
                 }
 
@@ -87,7 +87,7 @@ namespace BehTavan
             ) {
                 // First row
                 (*this)[0][0] = "Functions:";
-                for (size_t i = 0; i < funcsSize; i++) {
+                for (size_t i = 0; i < this->colCount; i++) {
                     (*this)[0][i + 1] = funcsInfo[i].name;
                 }
 
