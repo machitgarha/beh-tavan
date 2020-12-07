@@ -1,9 +1,9 @@
-#ifndef BEH_TAVAN_SORT_HPP
-#define BEH_TAVAN_SORT_HPP
+#ifndef BEH_TAVAN_SORTING_HPP
+#define BEH_TAVAN_SORTING_HPP
 
 #include <vector>
 
-namespace BehTavan::Functions::Sort
+namespace BehTavan::Functions::Sorting
 {
     template<typename T>
     void bubbleSort(std::vector<T> &);
@@ -30,4 +30,4 @@ namespace BehTavan::Functions::Sort
     void selectionSort(std::vector<T> &);
 }
 
-#endif // BEH_TAVAN_SORT_HPP
+#endif // BEH_TAVAN_SORTING_HPP
