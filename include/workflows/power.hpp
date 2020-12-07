@@ -29,15 +29,14 @@ namespace BehTavan::Workflows
         private:
             bool isInteractive;
 
-            // TODO: Make interactive a class property
-            inline Power::Base getBase()
+            inline Power::Base getBase() const
             {
                 return Input::getNumber<Power::Base>(
                     "base", BASE_DEFAULT, this->isInteractive
                 );
             }
 
-            inline Input::Collection<Power::Exponent> getExponents()
+            inline Input::Collection<Power::Exponent> getExponents() const
             {
                 return Input::getNumberCollection<Power::Exponent>(
                     "exponent", EXPONENTS_DEFAULT, this->isInteractive
