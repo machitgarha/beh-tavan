@@ -1,5 +1,5 @@
-#ifndef BEH_TAVAN_WORKFLOWS_BASE_HPP
-#define BEH_TAVAN_WORKFLOWS_BASE_HPP
+#ifndef BEH_TAVAN_WORKFLOWS_ABSTRACT_WORKFLOW_HPP
+#define BEH_TAVAN_WORKFLOWS_ABSTRACT_WORKFLOW_HPP
 
 namespace BehTavan::Workflows
 {
@@ -9,7 +9,7 @@ namespace BehTavan::Workflows
      * A workflow is a set of works (i.e. functions) done in order to make a whole work
      * done. Useful to keep things as simple as possible, and also to hide implementation.
      */
-    class BaseWorkflow
+    class AbstractWorkflow
     {
         public:
             /**
@@ -25,4 +25,4 @@ namespace BehTavan::Workflows
     };
 }
 
-#endif // BEH_TAVAN_WORKFLOWS_BASE_HPP
+#endif // BEH_TAVAN_WORKFLOWS_ABSTRACT_WORKFLOW_HPP

@@ -1,7 +1,8 @@
 #ifndef BEH_TAVAN_WORKFLOWS_POWER_HPP
 #define BEH_TAVAN_WORKFLOWS_POWER_HPP
 
-#include "base.hpp"
+#include "abstract-workflow.hpp"
+
 #include "input.hpp"
 #include "output.hpp"
 #include "env.hpp"
@@ -16,7 +17,7 @@
 
 namespace BehTavan::Workflows
 {
-    class PowerWorkflow: public BaseWorkflow
+    class PowerWorkflow: public AbstractWorkflow
     {
         public:
             inline PowerWorkflow():
