@@ -5,14 +5,13 @@
 #include <functional>
 #include <string>
 
+#include "types.hpp"
+
 // For children only
 #include "nameof.hpp"
 
 namespace BehTavan::Functions
 {
-    template<typename T, size_t size>
-    using Array = std::array<T, size>;
-
     /**
      * Container for information about a function. It contains two properties, function's
      * name and its pointer.
@@ -33,7 +32,7 @@ namespace BehTavan::Functions
     };
 
     template<size_t size, typename ReturnType, typename ...ArgTypes>
-    using FunctionInfoArray = Array<FunctionInfo<ReturnType, ArgTypes...>, size>;
+    using FunctionInfoArray = Types::Array<FunctionInfo<ReturnType, ArgTypes...>, size>;
 }
 
 #endif // BEH_TAVAN_FUNCTIONS_BASE_HPP
