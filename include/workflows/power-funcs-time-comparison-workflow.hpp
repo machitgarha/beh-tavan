@@ -14,6 +14,9 @@ namespace BehTavan::Workflows
 {
     using namespace Functions;
 
+    /**
+     * Print consumed time of some power functions.
+     */
     class PowerFuncsTimeComparisonWorkflow: public AbstractTimeComparisonWorkflow<
         Power::Result,
         Power::Base,
