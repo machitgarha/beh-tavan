@@ -1,5 +1,5 @@
 #include "output.hpp"
-#include "workflows/power.hpp"
+#include "workflows/power-funcs-time-comparison-workflow.hpp"
 
 using namespace BehTavan;
 
@@ -7,7 +7,7 @@ int main()
 {
     Output::printStartMessage();
 
-    Workflows::PowerWorkflow w;
+    Workflows::PowerFuncsTimeComparisonWorkflow w;
     w.run();
 
     return 0;
