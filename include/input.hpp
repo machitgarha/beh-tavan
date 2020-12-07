@@ -54,7 +54,7 @@ namespace BehTavan::Input
     template<typename NumberType>
     Collection<NumberType> getNumberCollection(
         Name name,
-        Collection<NumberType> &&defaultValue,
+        const Collection<NumberType> &defaultValue,
         bool interactive
     ) {
         if (!interactive) {

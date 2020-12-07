@@ -10,10 +10,6 @@
 #include "console-table/execution-result-table.hpp"
 #include "functions/power.hpp"
 
-// TODO: Move into the class
-#define BASE_DEFAULT 3
-#define EXPONENTS_DEFAULT {1, 5, 10, 100, 1000, 10000, 100000, 1000000, 10000000}
-
 namespace BehTavan::Workflows
 {
     using namespace Functions;
@@ -32,6 +28,11 @@ namespace BehTavan::Workflows
             virtual void run();
 
         protected:
+            const Power::Base defaultBase = 3;
+            const Input::Collection<Power::Exponent> defaultExponents = {
+                1, 5, 10, 1000, 10000, 100000, 1000000, 10000000, 100000000
+            };
+
             virtual inline const CurFunctionInfoVector &getFunctionsInfo() const noexcept
             {
                 static const CurFunctionInfoVector funcs = {
@@ -50,15 +51,15 @@ namespace BehTavan::Workflows
 
             inline Power::Base getBase() const
             {
-                return Input::getNumber<Power::Base>(
-                    "base", BASE_DEFAULT, this->isInteractive
+                return Input::getNumber(
+                    "base", this->defaultBase, this->isInteractive
                 );
             }
 
             inline Input::Collection<Power::Exponent> getExponents() const
             {
-                return Input::getNumberCollection<Power::Exponent>(
-                    "exponent", EXPONENTS_DEFAULT, this->isInteractive
+                return Input::getNumberCollection(
+                    "exponent", this->defaultExponents, this->isInteractive
                 );
             }
 
