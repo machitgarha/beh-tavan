@@ -4,6 +4,13 @@ using namespace BehTavan::Workflows;
 
 void PowerFuncsTimeComparisonWorkflow::run()
 {
+    // TODO: Seperate into a function
+    printLine("It raises a base number to one or more exponents using two power");
+    printLine("functions, using normal and optimized algorithms, and measures");
+    printLine("the time taken for each one, for each exponent. Then, the results");
+    printLine("are shown in a simple table.");
+    printNewLine();
+
     const Power::Base &&base = this->getBase();
     const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
 

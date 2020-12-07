@@ -14,9 +14,7 @@
 
 namespace BehTavan::Output
 {
-    /**
-     * Prints a simple message supposed to be at the start of the program.
-     */
+    /** Prints a simple message supposed to be at the start of the program. */
     void printStartMessage();
 }
 
