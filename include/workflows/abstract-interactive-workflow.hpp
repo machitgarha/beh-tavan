@@ -3,6 +3,7 @@
 
 #include "abstract-workflow.hpp"
 
+#include <type_traits>
 #include <vector>
 #include "env.hpp"
 #include "output.hpp"
@@ -28,15 +29,7 @@ namespace BehTavan::Workflows
             /*
              * Input name.
              */
-            using Name = const char *;
-
-            /*
-             * A type to hold a collection of things. Using vector directly is not a good
-             * idea, as we may change it in the future (considering we do not break BC),
-             * and also, a separated type helps preventing confusions.
-             */
-            template<typename T>
-            using Collection = std::vector<T>;
+            using InputName = const char *;
 
             /**
              * Returns a number, and if needed, gets it from the user.
@@ -45,14 +38,16 @@ namespace BehTavan::Workflows
              * @param defaultValue The default value.
              * @param interactive Whether the value is user supplied or not.
              */
-            template<typename NumberType>
-            NumberType getNumber(Name name, NumberType defaultValue)
+            template<typename NumType>
+            NumType getNumber(InputName name, NumType defaultValue)
             {
+                AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
+
                 if (!this->isInteractive) {
                     return defaultValue;
                 }
 
-                NumberType input;
+                NumType input;
 
                 printLine("Please enter the ", name, " (0: default):");
                 std::cin >> input;
@@ -68,17 +63,19 @@ namespace BehTavan::Workflows
              * @param defaultValue The default value.
              * @param interactive Whether the value is user supplied or not.
              */
-            template<typename NumberType>
-            Collection<NumberType> getNumberCollection(
-                Name name,
-                const Collection<NumberType> &defaultValue
+            template<typename NumType>
+            std::vector<NumType> getNumberCollection(
+                InputName name,
+                const std::vector<NumType> &defaultValue
             ) {
+                AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
+
                 if (!this->isInteractive) {
                     return defaultValue;
                 }
 
-                Collection<NumberType> result;
-                NumberType tmpNum = 1;
+                std::vector<NumType> result;
+                NumType tmpNum = 1;
 
                 printLine("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
 
@@ -95,6 +92,16 @@ namespace BehTavan::Workflows
                 } else {
                     return result;
                 }
+            }
+
+        private:
+            template<typename T>
+            constexpr static inline void assertIsIntegeral()
+            {
+                static_assert(
+                    std::is_integral_v<T>,
+                    "The given type is not integral"
+                );
             }
     };
 }

@@ -4,7 +4,6 @@
 #include "abstract-interactive-workflow.hpp"
 #include "abstract-time-comparison-workflow.hpp"
 
-#include "input.hpp"
 #include "output.hpp"
 #include "nameof.hpp"
 #include "types.hpp"
