@@ -9,13 +9,11 @@
 
 namespace BehTavan::Workflows
 {
-    using namespace Functions;
-
     class SortingTimeComparisonWorkflow:
         public AbstractInteractiveWorkflow,
         public AbstractTimeComparisonWorkflow<
             void,
-            std::vector<Types::UInt64>
+            std::vector<Types::UInt64> &
         >
     {
         public:
@@ -23,6 +21,24 @@ namespace BehTavan::Workflows
 
         protected:
             const size_t defaultArraySize = 256;
+
+            virtual inline const CurFunctionInfoVector &getFunctionsInfo() const
+            {
+                using namespace Functions;
+
+                static const CurFunctionInfoVector funcsInfo = {
+                    FUNCTION_INFO(Sorting::bubbleSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::countingSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::heapSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::insertionSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::mergeSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::quickSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::radixSort<Types::UInt64>),
+                    FUNCTION_INFO(Sorting::selectionSort<Types::UInt64>),
+                };
+
+                return funcsInfo;
+            }
 
             inline size_t getArraySize() const
             {
