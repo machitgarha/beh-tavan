@@ -2,7 +2,9 @@
 #define BEH_TAVAN_WORKFLOWS_COMPARISON_HPP
 
 #include "abstract-workflow.hpp"
+
 #include "function-info.hpp"
+#include "env.hpp"
 
 namespace BehTavan::Workflows
 {
@@ -12,7 +14,15 @@ namespace BehTavan::Workflows
     template<typename ReturnType, typename ...ArgTypes>
     class AbstractTimeComparisonWorkflow
     {
+        public:
+            inline AbstractTimeComparisonWorkflow():
+                isInteractive(Env::isInteractive())
+            {}
+
         protected:
+            /** INTERACTIVE env state */
+            bool isInteractive;
+
             /**
              * A type to hold functions information based on the specified prototype.
              */

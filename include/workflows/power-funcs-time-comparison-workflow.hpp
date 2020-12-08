@@ -23,11 +23,6 @@ namespace BehTavan::Workflows
         Power::Exponent
     > {
         public:
-            inline PowerFuncsTimeComparisonWorkflow():
-                isInteractive(Env::isInteractive())
-            {
-            };
-
             virtual void run();
 
         protected:
@@ -65,9 +60,6 @@ namespace BehTavan::Workflows
                     "exponent", this->defaultExponents, this->isInteractive
                 );
             }
-
-        private:
-            bool isInteractive;
     };
 }
 
