@@ -31,9 +31,9 @@ namespace BehTavan::Workflows
             using Name = const char *;
 
             /*
-             * A type to hold a collection of things. Using vector directly is not a good idea, as
-             * we may change it in the future (considering we do not break BC), and also, a
-             * separated type helps preventing confusions.
+             * A type to hold a collection of things. Using vector directly is not a good
+             * idea, as we may change it in the future (considering we do not break BC),
+             * and also, a separated type helps preventing confusions.
              */
             template<typename T>
             using Collection = std::vector<T>;
