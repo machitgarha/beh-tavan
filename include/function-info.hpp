@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 
+#include "nameof.hpp"
+
+#define FUNCTION_INFO(a) {a, NAMEOF(a).str()}
+
 namespace BehTavan
 {
     /**
@@ -18,6 +22,9 @@ namespace BehTavan
             using FunctionType = std::function<ReturnType(ArgTypes...)>;
             using FunctionName = std::string;
 
+            const FunctionType func;
+            const FunctionName name;
+
             FunctionInfo(FunctionType f, FunctionName fName):
                 func(f),
                 name(fName)
@@ -29,9 +36,6 @@ namespace BehTavan
                     throw std::invalid_argument("Function name must not be empty");
                 }
             }
-
-            const FunctionType func;
-            const FunctionName name;
     };
 
     /**

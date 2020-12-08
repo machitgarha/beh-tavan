@@ -37,14 +37,8 @@ namespace BehTavan::Workflows
             virtual inline const CurFunctionInfoVector &getFunctionsInfo() const noexcept
             {
                 static const CurFunctionInfoVector funcs = {
-                    {
-                        Power::power,
-                        NAMEOF(Power::power).str()
-                    },
-                    {
-                        Power::powerOptimized,
-                        NAMEOF(Power::powerOptimized).str()
-                    },
+                    FUNCTION_INFO(Power::power),
+                    FUNCTION_INFO(Power::powerOptimized),
                 };
 
                 return funcs;
