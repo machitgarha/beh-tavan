@@ -10,7 +10,7 @@ void PowerFuncsTimeComparisonWorkflow::run()
     printLine("functions, using normal and optimized algorithms, and measures");
     printLine("the time taken for each one, for each exponent. Then, the results");
     printLine("are shown in a simple table.");
-    printNewLine();
+    printLine();
 
     const Power::Base &&base = this->getBase();
     const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
@@ -21,9 +21,9 @@ void PowerFuncsTimeComparisonWorkflow::run()
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
 
     // Print information about the table
-    printVarVal(base);
-    printLine3("Time unit is in ", getPrintableTimeUnit<TimeUnit>(), "s.");
-    printNewLine();
+    printLine("base = ", base);
+    printLine("Time unit is in ", getPrintableTimeUnit<TimeUnit>(), "s.");
+    printLine();
 
     // Fill the table with data
     try {

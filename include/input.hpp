@@ -37,9 +37,9 @@ namespace BehTavan::Input
 
         NumberType input;
 
-        printLine3("Please enter the ", name, " (0: default):");
+        printLine("Please enter the ", name, " (0: default):");
         std::cin >> input;
-        printNewLine();
+        printLine();
 
         return input ?: defaultValue;
     }
@@ -64,7 +64,7 @@ namespace BehTavan::Input
         Collection<NumberType> result;
         NumberType tmpNum = 1;
 
-        printLine3("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
+        printLine("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
 
         std::cin >> tmpNum;
         while (tmpNum != 0) {
@@ -72,7 +72,7 @@ namespace BehTavan::Input
             std::cin >> tmpNum;
         }
 
-        printNewLine();
+        printLine();
 
         if (result.empty()) {
             return defaultValue;
