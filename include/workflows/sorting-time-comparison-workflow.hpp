@@ -5,8 +5,6 @@
 #include "abstract-time-comparison-workflow.hpp"
 
 #include "types.hpp"
-#include "input.hpp"
-#include "nameof.hpp"
 #include "functions/sorting.hpp"
 
 namespace BehTavan::Workflows
@@ -28,9 +26,7 @@ namespace BehTavan::Workflows
 
             inline size_t getArraySize() const
             {
-                return Input::getNumber(
-                    "array size", this->defaultArraySize, this->isInteractive
-                );
+                return this->getNumber("array size", this->defaultArraySize);
             }
     };
 }

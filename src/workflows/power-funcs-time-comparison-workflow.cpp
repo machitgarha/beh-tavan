@@ -13,7 +13,7 @@ void PowerFuncsTimeComparisonWorkflow::run()
     printLine();
 
     const Power::Base &&base = this->getBase();
-    const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
+    const std::vector<Power::Exponent> &&exponents = this->getExponents();
 
     const CurFunctionInfoVector &funcsInfo = this->getFunctionsInfo();
     ExecutionResultTable resultTable("Exponents", funcsInfo);
@@ -36,9 +36,8 @@ void PowerFuncsTimeComparisonWorkflow::run()
             );
         }
     } catch (std::runtime_error &e) {
-        printLine2("Runtime error: ", e.what());
+        printLine("Runtime error: ", e.what());
     }
 
-    // Print the table
-    std::cout << resultTable;
+    print(resultTable);
 }
