@@ -30,7 +30,7 @@ namespace BehTavan::Workflows
 
         protected:
             const Power::Base defaultBase = 3;
-            const Input::Collection<Power::Exponent> defaultExponents = {
+            const std::vector<Power::Exponent> defaultExponents = {
                 1, 5, 10, 1000, 10000, 100000, 1000000, 10000000, 100000000
             };
 
@@ -52,16 +52,12 @@ namespace BehTavan::Workflows
 
             inline Power::Base getBase() const
             {
-                return Input::getNumber(
-                    "base", this->defaultBase, this->isInteractive
-                );
+                return this->getNumber("base", this->defaultBase);
             }
 
-            inline Input::Collection<Power::Exponent> getExponents() const
+            inline std::vector<Power::Exponent> getExponents() const
             {
-                return Input::getNumberCollection(
-                    "exponent", this->defaultExponents, this->isInteractive
-                );
+                return this->getNumberVector("exponent", this->defaultExponents);
             }
     };
 }
