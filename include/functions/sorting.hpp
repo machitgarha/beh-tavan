@@ -1,5 +1,5 @@
-#ifndef BEH_TAVAN_SORTING_HPP
-#define BEH_TAVAN_SORTING_HPP
+#ifndef BEH_TAVAN_FUNCTIONS_SORTING_HPP
+#define BEH_TAVAN_FUNCTIONS_SORTING_HPP
 
 #include <vector>
 
@@ -30,4 +30,4 @@ namespace BehTavan::Functions::Sorting
     void selectionSort(std::vector<T> &);
 }
 
-#endif // BEH_TAVAN_SORTING_HPP
+#endif // BEH_TAVAN_FUNCTIONS_SORTING_HPP

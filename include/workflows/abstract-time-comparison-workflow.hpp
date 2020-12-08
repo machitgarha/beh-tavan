@@ -23,7 +23,7 @@ namespace BehTavan::Workflows
             /**
              * Returns the functions information to be executed and measured.
              */
-            virtual const CurFunctionInfoVector &getFunctionsInfo() const noexcept = 0;
+            virtual const CurFunctionInfoVector &getFunctionsInfo() const = 0;
     };
 }
 

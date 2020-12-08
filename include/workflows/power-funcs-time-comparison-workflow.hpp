@@ -34,14 +34,14 @@ namespace BehTavan::Workflows
                 1, 5, 10, 1000, 10000, 100000, 1000000, 10000000, 100000000
             };
 
-            virtual inline const CurFunctionInfoVector &getFunctionsInfo() const noexcept
+            virtual inline const CurFunctionInfoVector &getFunctionsInfo() const
             {
-                static const CurFunctionInfoVector funcs = {
+                static const CurFunctionInfoVector funcsInfo = {
                     FUNCTION_INFO(Power::power),
                     FUNCTION_INFO(Power::powerOptimized),
                 };
 
-                return funcs;
+                return funcsInfo;
             };
 
             inline Power::Base getBase() const

@@ -2,7 +2,6 @@
 #define BEH_TAVAN_FUNCTIONS_POWER_HPP
 
 #include "types.hpp"
-#include "function-info.hpp"
 
 namespace BehTavan::Functions::Power
 {
