@@ -23,4 +23,5 @@ target_include_directories(BehTavan PUBLIC
     ./include/
     ./lib/console-table/
     ./lib/nameof/include/
+    ./lib/chop/include
 )
