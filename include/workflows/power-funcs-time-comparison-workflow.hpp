@@ -1,11 +1,11 @@
 #ifndef BEH_TAVAN_WORKFLOWS_POWER_HPP
 #define BEH_TAVAN_WORKFLOWS_POWER_HPP
 
+#include "abstract-interactive-workflow.hpp"
 #include "abstract-time-comparison-workflow.hpp"
 
 #include "input.hpp"
 #include "output.hpp"
-#include "env.hpp"
 #include "types.hpp"
 #include "console-table/execution-result-table.hpp"
 #include "functions/power.hpp"
@@ -17,11 +17,14 @@ namespace BehTavan::Workflows
     /**
      * Print consumed time of some power functions.
      */
-    class PowerFuncsTimeComparisonWorkflow: public AbstractTimeComparisonWorkflow<
-        Power::Result,
-        Power::Base,
-        Power::Exponent
-    > {
+    class PowerFuncsTimeComparisonWorkflow:
+        public AbstractInteractiveWorkflow,
+        public AbstractTimeComparisonWorkflow<
+            Power::Result,
+            Power::Base,
+            Power::Exponent
+        >
+    {
         public:
             virtual void run();
 

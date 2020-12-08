@@ -14,15 +14,7 @@ namespace BehTavan::Workflows
     template<typename ReturnType, typename ...ArgTypes>
     class AbstractTimeComparisonWorkflow
     {
-        public:
-            inline AbstractTimeComparisonWorkflow():
-                isInteractive(Env::isInteractive())
-            {}
-
         protected:
-            /** INTERACTIVE env state */
-            bool isInteractive;
-
             /**
              * A type to hold functions information based on the specified prototype.
              */
