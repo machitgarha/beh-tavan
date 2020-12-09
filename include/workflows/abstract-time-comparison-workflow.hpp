@@ -329,7 +329,10 @@ namespace BehTavan::Workflows
 
                 std::vector<std::string> dataSet(this->funcsSize + 1);
                 dataSet[0] = inputIdentifier;
-                std::copy(record.cbegin(), record.cend(), std::back_inserter(dataSet));
+
+                for (size_t i = 0; i < this->funcsSize; i++) {
+                    dataSet[i + 1] = record[i];
+                }
 
                 if (this->orientation == Orientation::ROW_BASED) {
                     this->addRow(dataSet);
