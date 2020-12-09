@@ -8,10 +8,10 @@ using namespace BehTavan::Workflows;
 void SortingTimeComparisonWorkflow::run()
 {
     const size_t n = this->getArraySize();
-
     std::vector<Types::UInt64> arr(this->generateRandomArray(n));
 
     const CurFunctionInfoVector &funcsInfo = this->getFunctionsInfo();
+
     // Measure
     // Print
 }

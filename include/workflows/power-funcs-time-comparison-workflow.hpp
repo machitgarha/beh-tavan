@@ -7,7 +7,6 @@
 #include "output.hpp"
 #include "nameof.hpp"
 #include "types.hpp"
-#include "console-table/execution-result-table.hpp"
 #include "functions/power.hpp"
 
 namespace BehTavan::Workflows

@@ -16,7 +16,7 @@ void PowerFuncsTimeComparisonWorkflow::run()
     const std::vector<Power::Exponent> &&exponents = this->getExponents();
 
     const CurFunctionInfoVector &funcsInfo = this->getFunctionsInfo();
-    ExecutionResultTable resultTable("Exponents", funcsInfo);
+    ResultConsoleTable resultTable(funcsInfo);
 
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
 
@@ -28,11 +28,9 @@ void PowerFuncsTimeComparisonWorkflow::run()
     // Fill the table with data
     try {
         for (Power::Exponent exponent : exponents) {
-            resultTable.addRow(
-                exponent,
-                getFuncExecTimeSet<TimeUnit>(
-                    funcsInfo, std::move(base), std::move(exponent)
-                )
+            resultTable.addRecord(
+                std::to_string(exponent),
+                getFuncExecTimeSet<TimeUnit>(funcsInfo, base, exponent)
             );
         }
     } catch (std::runtime_error &e) {
