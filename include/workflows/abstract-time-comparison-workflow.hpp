@@ -39,6 +39,9 @@ namespace BehTavan::Workflows
          */
         class ResultConsoleTable: public StandardConsoleTable
         {
+        protected:
+            using This = ResultConsoleTable &;
+
         public:
             /**
              * Orientation of the table. Specifies the table output structure and flow.
@@ -69,9 +72,9 @@ namespace BehTavan::Workflows
              * It can be the input set itself, only the changing input, or a phrase
              * describing it.
              */
-            ResultConsoleTable &addRecord(
+            This addRecord(
                 const std::string &inputIdentifier,
-                std::vector<TimeMeasuring::ExecutionTime>
+                const std::vector<TimeMeasuring::ExecutionTime> &
             );
 
         protected:
@@ -82,14 +85,9 @@ namespace BehTavan::Workflows
             /**
              * Fills the table header.
              */
-            constexpr ResultConsoleTable &addHeader(
+            constexpr This addHeader(
                 const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo
             );
-
-        private:
-            /** Current index row. First and second rows are for header. */
-            size_t curRow = 2;
-
         };
     };
 }
