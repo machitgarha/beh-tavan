@@ -67,7 +67,151 @@ namespace BehTavan::Workflows
 
             using ExecutionTime = Types::UInt64;
 
-            using _TimePoint = std::chrono::high_resolution_clock::time_point;
+            /*
+             * A list of execution times. As the function information list is constant, so
+             * its size is constant too, thus, it is more efficient to use arrays instead
+             * of other containers (e.g. vectors).
+             */
+            using ExecutionTimeVector = std::vector<ExecutionTime>;
+
+            /**
+             * Returns execution times of a group of functions, for the given input.
+             *
+             * @param funcArgs The arguments to be forwarded to each function.
+             * @return List of execution times of the functions, in the specified unit
+             * (i.e. via template argument), sorted the same as input function list.
+             */
+            template<typename TimeUnit>
+            inline ExecutionTimeVector getFuncExecTimeSet(
+                const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo,
+                ArgTypes &&...funcArgs
+            ) {
+                // TODO: Maybe remove implementation to a CPP file and specialize it?
+
+                if constexpr (funcsInfo.empty()) {
+                    throw std::invalid_argument(
+                        "Functions information must at least contain one function"
+                    );
+                }
+
+                const size_t funcsInfoSize = funcsInfo.size();
+                ExecutionTimeVector times(funcsInfoSize);
+
+                /*
+                 * To ensure all functions produce the same output, we must compare their
+                 * outputs to be equal. However, comparing all consecutive output pairs is
+                 * just enough.
+                 *
+                 * So, we need two variables for storing output of previous and current
+                 * function. As the first element has no previous element, so we check not
+                 * being the first one.
+                 *
+                 * Also, the default value of both variables is zero. Although the
+                 * following this rule is always good (i.e. having default values always
+                 * and preventing random values in random variables), but here is
+                 * necessary to handle void functions. In this case, there is no output,
+                 * and thus, no comparisons.
+                 */
+                bool isFirstFunction = true;
+
+                ReturnValuePair outputs = {
+                    nullptr,
+                    nullptr,
+                };
+                ArgSetValuePair arguments = {
+                    {funcArgs...},
+                    {funcArgs...},
+                };
+
+                for (size_t i = 0; i < funcsInfoSize; i++) {
+                    /*
+                     * Handle void functions explicitly (zero-cost), as the arguments
+                     * count differ with the non-void ones. The later have to get the
+                     * output, but the former not.
+                     *
+                     * Also, by making the following peice of code a function, the code
+                     * only gets duplicated. If you wonder why, try doing that.
+                     */
+                    if constexpr (std::is_void_v<ReturnType>) {
+                        times[i] = this->getFuncExecTime<TimeUnit, ArgTypes...>(
+                            funcsInfo[i].func,
+                            std::forward<ArgTypes>(arguments.current)...
+                        );
+                    } else {
+                        times[i] = this->getFuncExecTime<TimeUnit, ReturnType, ArgTypes...>
+                        (
+                            funcsInfo[i].func,
+                            &outputs.current,
+                            std::forward<ArgTypes>(arguments.current)...
+                        );
+
+                        if (isFirstFunction) {
+                            *outputs.previous = *outputs.current;
+                        }
+                    }
+
+                    // Ensure all outputs are equal
+                    if (!this->doProduceSameResults(outputs, arguments)) {
+                        throw std::runtime_error(
+                            "Functions do not produce the same output"
+                        );
+                    }
+
+                    isFirstFunction = false;
+
+                    *outputs.previous = *outputs.current;
+                    arguments.previous = {arguments.current};
+                    // Get a fresh arguments list
+                    arguments.current = {funcArgs...};
+                }
+
+                return times;
+            }
+
+        protected:
+            /*
+             * Container to compare two output values of two same-prototyped functions.
+             *
+             * Pointers are used instaed of references/bare-from, because of the
+             * case of ReturnType being void.
+             */
+            struct ReturnValuePair
+            {
+                ReturnType *previous = nullptr;
+                ReturnType *current = nullptr;
+            };
+            /*
+             * Container to compare two input sets of two same-prototyped functions.
+             */
+            struct ArgSetValuePair
+            {
+                std::tuple<ArgTypes...> previous;
+                std::tuple<ArgTypes...> current;
+            };
+
+            using TimePoint = std::chrono::high_resolution_clock::time_point;
+
+            /**
+             * Returns if two same-prototyped functions produce the same results or not.
+             *
+             * To check this condition, it is not enough to compare the outputs (if we
+             * suppose comparing outputs is implemented). Alongside outputs, all inputs
+             * that are being passed by reference/pointer may change. So, for this
+             * particular purpose, all outputs and modifiable inputs must be considered,
+             * and we call them all results.
+             *
+             * As the different functions have a vast range of prototypes, it is not
+             * possible to write a general checker, and it must be done manually. This
+             * is the function to be implemented to perform this operation.
+             *
+             * @param outputs The outputs of two functions. If called internally, it is
+             * guarenteed that the pointers live here are valid (i.e. not null), except if
+             * ReturnType is void, which, in this case, both pointers are always null.
+             */
+            virtual constexpr bool doProduceSameResults(
+                const ReturnValuePair &outputs,
+                const ArgSetValuePair &inputArguments
+            ) = 0;
 
             /**
              * Returns the execution time of a function, for the given input.
@@ -80,15 +224,15 @@ namespace BehTavan::Workflows
              * @return How long the execution of the function took, in the specified unit.
              */
             template<typename TimeUnit>
-            inline ExecutionTime getFuncExecTime(
+            static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType &func,
                 ReturnType &funcOutput,
                 ArgTypes &&...funcArgs
             ) {
-                _TimePoint t1, t2;
+                TimePoint t1, t2;
 
                 t1 = std::chrono::high_resolution_clock::now();
-                funcOutput = func(std::forward<ArgTypes>(funcArgs)...);
+                funcOutput = (func)(std::forward<ArgTypes>(funcArgs)...);
                 t2 = std::chrono::high_resolution_clock::now();
 
                 return std::chrono::duration_cast<TimeUnit>(t2 - t1).count();
@@ -111,101 +255,17 @@ namespace BehTavan::Workflows
              * arguments, however, it is always good to pass template arguments explicitly.
              */
             template<typename TimeUnit>
-            inline ExecutionTime getFuncExecTime(
+            static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<void, ArgTypes...>::FunctionType &func,
                 ArgTypes &&...funcArgs
             ) {
-                _TimePoint t1, t2;
+                TimePoint t1, t2;
 
                 t1 = std::chrono::high_resolution_clock::now();
-                func(std::forward<ArgTypes>(funcArgs)...);
+                (func)(std::forward<ArgTypes>(funcArgs)...);
                 t2 = std::chrono::high_resolution_clock::now();
 
                 return std::chrono::duration_cast<TimeUnit>(t2 - t1).count();
-            }
-
-            /*
-             * A list of execution times. As the function information list is constant, so
-             * its size is constant too, thus, it is more efficient to use arrays instead
-             * of other containers (e.g. vectors).
-             */
-            using ExecutionTimeVector = std::vector<ExecutionTime>;
-
-            /**
-             * Returns execution times of a group of functions, for the given input.
-             *
-             * @param funcArgs The arguments to be forwarded to each function.
-             * @return List of execution times of the functions, in the specified unit
-             * (i.e. via template argument), sorted the same as input function list.
-             */
-            template<typename TimeUnit>
-            inline ExecutionTimeVector getFuncExecTimeSet(
-                const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo,
-                ArgTypes &&...funcArgs
-            ) {
-                // TODO: Maybe remove implementation to a CPP file and specialize it?
-
-                // Function type of each function
-                using FunctionType = typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType;
-
-                const size_t funcsInfoSize = funcsInfo.size();
-                ExecutionTimeVector times(funcsInfoSize);
-
-                /*
-                 * To ensure all functions produce the same output, we must compare their
-                 * outputs to be equal. However, comparing all consecutive output pairs is
-                 * just enough.
-                 *
-                 * So, we need two variables for storing output of previous and current
-                 * function. As the first element has no previous element, so we check not
-                 * being the first one.
-                 *
-                 * Also, the default value of both variables is zero. Although the
-                 * following this rule is always good (i.e. having default values always
-                 * and preventing random values in random variables), but here is
-                 * necessary to handle void functions. In this case, there is no output,
-                 * and thus, no comparisons
-                 */
-                ReturnType prevOutput = 0, curOutput = 0;
-                bool isFirstElement = true;
-
-                for (size_t i = 0; i < funcsInfoSize; i++) {
-                    /*
-                     * Handle void functions explicitly, as the arguments count differ
-                     * with the non-void ones. The later have to get the output, but the
-                     * former not.
-                     *
-                     * And, it should be noted that, the cost of this if is zero at
-                     * runtime; since it gets evaluated at compile-time (i.e. it is
-                     * constexpr). As a result, putting it inside the for and outside of
-                     * it does not matter.
-                     *
-                     * Also, by making the following peice of code a function, the code
-                     * only gets duplicated. If you wonder why, try doing that.
-                     */
-                    if constexpr (std::is_void_v<ReturnType>) {
-                        times[i] = getFuncExecTime<TimeUnit, ArgTypes...>(
-                            funcsInfo[i].func, std::forward<ArgTypes>(funcArgs)...
-                        );
-                    } else {
-                        times[i] = getFuncExecTime<TimeUnit, ReturnType, ArgTypes...>(
-                            funcsInfo[i].func, curOutput,
-                            std::forward<ArgTypes>(funcArgs)...
-                        );
-                    }
-
-                    // Ensure all outputs are equal
-                    if (!isFirstElement && prevOutput != curOutput) {
-                        throw std::runtime_error(
-                            "Functions do not produce the same output"
-                        );
-                    }
-
-                    isFirstElement = false;
-                    prevOutput = curOutput;
-                }
-
-                return times;
             }
         };
 
