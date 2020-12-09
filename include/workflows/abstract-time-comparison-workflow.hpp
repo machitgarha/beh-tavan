@@ -16,9 +16,8 @@ namespace BehTavan::Workflows
     class AbstractTimeComparisonWorkflow
     {
         protected:
-            /**
-             * A type to hold functions information based on the specified prototype.
-             */
+            // Types for the instantiated function information
+            using CurFunctionInfo = FunctionInfo<ReturnType, ArgTypes...>;
             using CurFunctionInfoVector = FunctionInfoVector<ReturnType, ArgTypes...>;
 
             /**
