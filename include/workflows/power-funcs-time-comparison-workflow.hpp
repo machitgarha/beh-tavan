@@ -5,8 +5,6 @@
 #include "abstract-time-comparison-workflow.hpp"
 
 #include "output.hpp"
-#include "nameof.hpp"
-#include "types.hpp"
 #include "functions/power.hpp"
 
 namespace BehTavan::Workflows
@@ -43,7 +41,7 @@ namespace BehTavan::Workflows
             return funcsInfo;
         };
 
-        inline Power::Base getBase() const
+        constexpr inline Power::Base getBase() const
         {
             return this->getNumber("base", this->defaultBase);
         }
@@ -52,6 +50,16 @@ namespace BehTavan::Workflows
         {
             return this->getNumberVector("exponent", this->defaultExponents);
         }
+
+        class TimeMeasuring:
+            public AbstractTimeComparisonWorkflow::TimeMeasuring
+        {
+        protected:
+            virtual bool doProduceSameResults(
+                const ReturnValuePair &outputs,
+                const ArgSetValuePair &inputArguments
+            ) final;
+        };
     };
 }
 

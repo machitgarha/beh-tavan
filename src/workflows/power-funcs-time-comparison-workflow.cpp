@@ -1,7 +1,6 @@
 #include "workflows/power-funcs-time-comparison-workflow.hpp"
 
 using namespace BehTavan::Workflows;
-using namespace BehTavan::TimeMeasuring;
 
 void PowerFuncsTimeComparisonWorkflow::run()
 {
@@ -22,7 +21,11 @@ void PowerFuncsTimeComparisonWorkflow::run()
 
     // Print information about the table
     printLine("base = ", base);
-    printLine("Time unit is in ", getPrintableTimeUnit<TimeUnit>(), "s.");
+    printLine(
+        "Time unit is in ",
+        TimeMeasuring::TimeUnit::getPrintableTimeUnit<TimeUnit>(),
+        "s."
+    );
     printLine();
 
     // Fill the table with data
@@ -38,4 +41,11 @@ void PowerFuncsTimeComparisonWorkflow::run()
     }
 
     print(resultTable);
+}
+
+bool PowerFuncsTimeComparisonWorkflow::TimeMeasuring::doProduceSameResults(
+    const ReturnValuePair &outputs,
+    const ArgSetValuePair &inputArguments
+) {
+    return *outputs.current == *outputs.previous;
 }
