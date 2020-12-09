@@ -37,7 +37,7 @@ namespace BehTavan::Workflows
          * Here, we call the set of time results for each input set a record. In other
          * words, records are input-based rather than function-based.
          */
-        class ExecutionTimeResultConsoleTable: public StandardConsoleTable
+        class ResultConsoleTable: public StandardConsoleTable
         {
         public:
             /**
@@ -57,7 +57,7 @@ namespace BehTavan::Workflows
 
             const size_t funcsSize;
 
-            ExecutionTimeResultConsoleTable(
+            ResultConsoleTable(
                 const FunctionInfoVector<ReturnType, ArgTypes...> &,
                 Orientation = Orientation::COLUMN_BASED
             );
@@ -69,7 +69,7 @@ namespace BehTavan::Workflows
              * It can be the input set itself, only the changing input, or a phrase
              * describing it.
              */
-            ExecutionTimeResultConsoleTable &addRecord(
+            ResultConsoleTable &addRecord(
                 const std::string &inputIdentifier,
                 std::vector<TimeMeasuring::ExecutionTime>
             );
@@ -82,7 +82,7 @@ namespace BehTavan::Workflows
             /**
              * Fills the table header.
              */
-            constexpr ExecutionTimeResultConsoleTable &addHeader(
+            constexpr ResultConsoleTable &addHeader(
                 const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo
             );
 
