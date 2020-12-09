@@ -30,88 +30,66 @@ namespace BehTavan::Workflows
 
         /**
          * Console table specifically for representing execution time results.
+         *
+         * Obviously, what is going to be done is, we have one or more input set to pass
+         * to some functions, measure its time and output the results.
+         *
+         * Here, we call the set of time results for each input set a record. In other
+         * words, records are input-based rather than function-based.
          */
         class ExecutionTimeResultConsoleTable: public StandardConsoleTable
         {
         public:
             /**
-             * Constructor.
-             *
-             * Creates the table, and prepares the table header, based on the given input.
-             *
-             * @param firstColumnName The title of the changing values in the first column.
-             * @param funcsInfo Information list of functions being worked on.
+             * Orientation of the table. Specifies the table output structure and flow.
              */
-            inline ExecutionTimeResultConsoleTable(
-                const std::string &&firstColumnName,
-                const FunctionInfoVector<
-                    ReturnType,
-                    ArgTypes...
-                > &funcsInfo
-            ): colCount(funcsInfo.size())
+            const enum class Orientation
             {
-                this->addHeader(std::move(firstColumnName), std::move(funcsInfo));
-            }
+                /**
+                 * Each record lives in one row (also function titles).
+                 */
+                ROW_BASED,
+                /**
+                 * Each record lives in one column (also function titles).
+                 */
+                COLUMN_BASED,
+            } orientation;
+
+            const size_t funcsSize;
+
+            ExecutionTimeResultConsoleTable(
+                const FunctionInfoVector<ReturnType, ArgTypes...> &,
+                Orientation = Orientation::COLUMN_BASED
+            );
 
             /**
-             * Add a new row, consisting a new record.
+             * Adds a record to the table.
              *
-             * @param recordInputValue The first cell value, which is the variable input
-             * changing between records.
-             * @param execTimes Execution times of each function, sorted as the functions
-             * information passed to the constructor.
+             * @param inputIdentifier The identifier for distinction between input sets.
+             * It can be the input set itself, only the changing input, or a phrase
+             * describing it.
              */
-            template<typename Value>
-            inline void addRow(
-                Value recordInputValue,
-                TimeMeasuring::ExecutionTimeVector &&execTimes
-            ) {
-                if (execTimes.size() != colCount) {
-                    throw std::invalid_argument(
-                        "Execution times count does not equal functions count"
-                    );
-                }
-
-                // First cell
-                (*this)[this->curRow][0] = recordInputValue;
-
-                for (size_t i = 0; i < this->colCount; i++) {
-                    (*this)[this->curRow][i + 1] = execTimes[i];
-                }
-
-                // Go to next row, for the next call
-                this->curRow++;
-            }
+            ExecutionTimeResultConsoleTable &addRecord(
+                const std::string &inputIdentifier,
+                std::vector<TimeMeasuring::ExecutionTime>
+            );
 
         protected:
+            // addRecord must be used instead
             using StandardConsoleTable::addRow;
+            using StandardConsoleTable::addColumn;
+
+            /**
+             * Fills the table header.
+             */
+            constexpr ExecutionTimeResultConsoleTable &addHeader(
+                const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo
+            );
 
         private:
-            /** Column count, based on the number of functions. */
-            const size_t colCount;
-
             /** Current index row. First and second rows are for header. */
             size_t curRow = 2;
 
-            /**
-             * Fills the header of the given table, including the first two rows.
-             */
-            void addHeader(
-                const std::string &&firstColumnName,
-                const FunctionInfoVector<
-                    ReturnType,
-                    ArgTypes...
-                > &&funcsInfo
-            ) {
-                // First row
-                (*this)[0][0] = "Functions:";
-                for (size_t i = 0; i < this->colCount; i++) {
-                    (*this)[0][i + 1] = funcsInfo[i].name;
-                }
-
-                // Second row
-                (*this)[1][0] = firstColumnName;
-            }
         };
     };
 }
