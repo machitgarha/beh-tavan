@@ -4,6 +4,7 @@
 #include "abstract-interactive-workflow.hpp"
 #include "abstract-time-comparison-workflow.hpp"
 
+#include <random>
 #include "types.hpp"
 #include "functions/sorting.hpp"
 
@@ -44,6 +45,11 @@ namespace BehTavan::Workflows
             {
                 return this->getNumber("array size", this->defaultArraySize);
             }
+
+        private:
+            static const Types::UInt64 randMax = 40000;
+
+            std::vector<Types::UInt64> generateRandomArray(size_t);
     };
 }
 
