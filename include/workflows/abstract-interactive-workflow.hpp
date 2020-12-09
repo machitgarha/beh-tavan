@@ -39,7 +39,7 @@ namespace BehTavan::Workflows
          * @param interactive Whether the value is user supplied or not.
          */
         template<typename NumType>
-        NumType getNumber(InputName name, NumType defaultValue) const
+        constexpr NumType getNumber(InputName name, NumType defaultValue) const
         {
             AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
 
