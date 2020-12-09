@@ -25,34 +25,34 @@ namespace BehTavan::Workflows
             Power::Exponent
         >
     {
-        public:
-            virtual void run();
+    public:
+        virtual void run();
 
-        protected:
-            const Power::Base defaultBase = 3;
-            const std::vector<Power::Exponent> defaultExponents = {
-                1, 5, 10, 1000, 10000, 100000, 1000000, 10000000, 100000000
+    protected:
+        const Power::Base defaultBase = 3;
+        const std::vector<Power::Exponent> defaultExponents = {
+            1, 5, 10, 1000, 10000, 100000, 1000000, 10000000, 100000000
+        };
+
+        virtual inline const CurFunctionInfoVector &getFunctionsInfo() const
+        {
+            static const CurFunctionInfoVector funcsInfo = {
+                FUNCTION_INFO(Power::power),
+                FUNCTION_INFO(Power::powerOptimized),
             };
 
-            virtual inline const CurFunctionInfoVector &getFunctionsInfo() const
-            {
-                static const CurFunctionInfoVector funcsInfo = {
-                    FUNCTION_INFO(Power::power),
-                    FUNCTION_INFO(Power::powerOptimized),
-                };
+            return funcsInfo;
+        };
 
-                return funcsInfo;
-            };
+        inline Power::Base getBase() const
+        {
+            return this->getNumber("base", this->defaultBase);
+        }
 
-            inline Power::Base getBase() const
-            {
-                return this->getNumber("base", this->defaultBase);
-            }
-
-            inline std::vector<Power::Exponent> getExponents() const
-            {
-                return this->getNumberVector("exponent", this->defaultExponents);
-            }
+        inline std::vector<Power::Exponent> getExponents() const
+        {
+            return this->getNumberVector("exponent", this->defaultExponents);
+        }
     };
 }
 

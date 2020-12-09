@@ -17,39 +17,39 @@ namespace BehTavan::Workflows
             std::vector<Types::UInt64> &
         >
     {
-        public:
-            virtual void run();
+    public:
+        virtual void run();
 
-        protected:
-            const size_t defaultArraySize = 256;
+    protected:
+        const size_t defaultArraySize = 256;
 
-            virtual inline const CurFunctionInfoVector &getFunctionsInfo() const
-            {
-                using namespace Functions;
+        virtual inline const CurFunctionInfoVector &getFunctionsInfo() const
+        {
+            using namespace Functions;
 
-                static const CurFunctionInfoVector funcsInfo = {
-                    FUNCTION_INFO(Sorting::bubbleSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::countingSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::heapSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::insertionSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::mergeSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::quickSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::radixSort<Types::UInt64>),
-                    FUNCTION_INFO(Sorting::selectionSort<Types::UInt64>),
-                };
+            static const CurFunctionInfoVector funcsInfo = {
+                FUNCTION_INFO(Sorting::bubbleSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::countingSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::heapSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::insertionSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::mergeSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::quickSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::radixSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::selectionSort<Types::UInt64>),
+            };
 
-                return funcsInfo;
-            }
+            return funcsInfo;
+        }
 
-            inline size_t getArraySize() const
-            {
-                return this->getNumber("array size", this->defaultArraySize);
-            }
+        inline size_t getArraySize() const
+        {
+            return this->getNumber("array size", this->defaultArraySize);
+        }
 
-        private:
-            static const Types::UInt64 randMax = 40000;
+    private:
+        static const Types::UInt64 randMax = 40000;
 
-            std::vector<Types::UInt64> generateRandomArray(size_t);
+        std::vector<Types::UInt64> generateRandomArray(size_t);
     };
 }
 

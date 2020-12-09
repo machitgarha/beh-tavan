@@ -18,91 +18,91 @@ namespace BehTavan::Workflows
      */
     class AbstractInteractiveWorkflow: public AbstractWorkflow
     {
-        public:
-            AbstractInteractiveWorkflow():
-                isInteractive(Env::isInteractive())
-            {};
+    public:
+        AbstractInteractiveWorkflow():
+            isInteractive(Env::isInteractive())
+        {};
 
-        protected:
-            const bool isInteractive = true;
+    protected:
+        const bool isInteractive = true;
 
-            /*
-             * Input name.
-             */
-            using InputName = const char *;
+        /*
+         * Input name.
+         */
+        using InputName = const char *;
 
-            /**
-             * Returns a number, and if needed, gets it from the user.
-             *
-             * @param name The name of the input number.
-             * @param defaultValue The default value.
-             * @param interactive Whether the value is user supplied or not.
-             */
-            template<typename NumType>
-            NumType getNumber(InputName name, NumType defaultValue) const
-            {
-                AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
+        /**
+         * Returns a number, and if needed, gets it from the user.
+         *
+         * @param name The name of the input number.
+         * @param defaultValue The default value.
+         * @param interactive Whether the value is user supplied or not.
+         */
+        template<typename NumType>
+        NumType getNumber(InputName name, NumType defaultValue) const
+        {
+            AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
 
-                if (!this->isInteractive) {
-                    return defaultValue;
-                }
-
-                NumType input;
-
-                printLine("Please enter the ", name, " (0: default):");
-                std::cin >> input;
-                printLine();
-
-                return input ?: defaultValue;
+            if (!this->isInteractive) {
+                return defaultValue;
             }
 
-            /**
-             * Returns a collection of numbers, and if needed, gets it from the user.
-             *
-             * @param name The name of the input number.
-             * @param defaultValue The default value.
-             * @param interactive Whether the value is user supplied or not.
-             */
-            template<typename NumType>
-            std::vector<NumType> getNumberVector(
-                InputName name,
-                const std::vector<NumType> &defaultValue
-            ) const {
-                AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
+            NumType input;
 
-                if (!this->isInteractive) {
-                    return defaultValue;
-                }
+            printLine("Please enter the ", name, " (0: default):");
+            std::cin >> input;
+            printLine();
 
-                std::vector<NumType> result;
-                NumType tmpNum = 1;
+            return input ?: defaultValue;
+        }
 
-                printLine("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
+        /**
+         * Returns a collection of numbers, and if needed, gets it from the user.
+         *
+         * @param name The name of the input number.
+         * @param defaultValue The default value.
+         * @param interactive Whether the value is user supplied or not.
+         */
+        template<typename NumType>
+        std::vector<NumType> getNumberVector(
+            InputName name,
+            const std::vector<NumType> &defaultValue
+        ) const {
+            AbstractInteractiveWorkflow::assertIsIntegeral<NumType>();
 
+            if (!this->isInteractive) {
+                return defaultValue;
+            }
+
+            std::vector<NumType> result;
+            NumType tmpNum = 1;
+
+            printLine("Please enter a list of ", name, "s (0: exit, 0 at beginning: default): ");
+
+            std::cin >> tmpNum;
+            while (tmpNum != 0) {
+                result.push_back(tmpNum);
                 std::cin >> tmpNum;
-                while (tmpNum != 0) {
-                    result.push_back(tmpNum);
-                    std::cin >> tmpNum;
-                }
-
-                printLine();
-
-                if (result.empty()) {
-                    return defaultValue;
-                } else {
-                    return result;
-                }
             }
 
-        private:
-            template<typename T>
-            constexpr static inline void assertIsIntegeral()
-            {
-                static_assert(
-                    std::is_integral_v<T>,
-                    "The given type is not integral"
-                );
+            printLine();
+
+            if (result.empty()) {
+                return defaultValue;
+            } else {
+                return result;
             }
+        }
+
+    private:
+        template<typename T>
+        constexpr static inline void assertIsIntegeral()
+        {
+            static_assert(
+                std::is_integral_v<T>,
+                "The given type is not integral"
+            );
+        }
     };
 }
 

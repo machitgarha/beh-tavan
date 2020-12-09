@@ -15,15 +15,15 @@ namespace BehTavan::Workflows
     template<typename ReturnType, typename ...ArgTypes>
     class AbstractTimeComparisonWorkflow
     {
-        protected:
-            // Types for the instantiated function information
-            using CurFunctionInfo = FunctionInfo<ReturnType, ArgTypes...>;
-            using CurFunctionInfoVector = FunctionInfoVector<ReturnType, ArgTypes...>;
+    protected:
+        // Types for the instantiated function information
+        using CurFunctionInfo = FunctionInfo<ReturnType, ArgTypes...>;
+        using CurFunctionInfoVector = FunctionInfoVector<ReturnType, ArgTypes...>;
 
-            /**
-             * Returns the functions information to be executed and measured.
-             */
-            virtual const CurFunctionInfoVector &getFunctionsInfo() const = 0;
+        /**
+         * Returns the functions information to be executed and measured.
+         */
+        virtual const CurFunctionInfoVector &getFunctionsInfo() const = 0;
     };
 }
 
