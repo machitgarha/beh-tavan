@@ -59,7 +59,7 @@ namespace BehTavan::Workflows
                 const ReturnValuePair &outputs,
                 const ArgSetValuePair &inputArguments
             ) final;
-        };
+        } timeMeasuring;
     };
 }
 

@@ -33,7 +33,11 @@ void PowerFuncsTimeComparisonWorkflow::run()
         for (Power::Exponent exponent : exponents) {
             resultTable.addRecord(
                 std::to_string(exponent),
-                getFuncExecTimeSet<TimeUnit>(funcsInfo, base, exponent)
+                this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(
+                    funcsInfo,
+                    std::move(base),
+                    std::move(exponent)
+                )
             );
         }
     } catch (std::runtime_error &e) {

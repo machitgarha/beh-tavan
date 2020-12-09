@@ -84,11 +84,11 @@ namespace BehTavan::Workflows
             template<typename TimeUnit>
             inline ExecutionTimeVector getFuncExecTimeSet(
                 const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo,
-                ArgTypes &&...funcArgs
+                const ArgTypes &&...funcArgs
             ) {
                 // TODO: Maybe remove implementation to a CPP file and specialize it?
 
-                if constexpr (funcsInfo.empty()) {
+                if (funcsInfo.empty()) {
                     throw std::invalid_argument(
                         "Functions information must at least contain one function"
                     );
@@ -133,16 +133,15 @@ namespace BehTavan::Workflows
                      * only gets duplicated. If you wonder why, try doing that.
                      */
                     if constexpr (std::is_void_v<ReturnType>) {
-                        times[i] = this->getFuncExecTime<TimeUnit, ArgTypes...>(
+                        times[i] = this->getFuncExecTime<TimeUnit>(
                             funcsInfo[i].func,
-                            std::forward<ArgTypes>(arguments.current)...
+                            arguments.current
                         );
                     } else {
-                        times[i] = this->getFuncExecTime<TimeUnit, ReturnType, ArgTypes...>
-                        (
+                        times[i] = this->getFuncExecTime<TimeUnit>(
                             funcsInfo[i].func,
-                            &outputs.current,
-                            std::forward<ArgTypes>(arguments.current)...
+                            *outputs.current,
+                            arguments.current
                         );
 
                         if (isFirstFunction) {
@@ -227,12 +226,12 @@ namespace BehTavan::Workflows
             static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType &func,
                 ReturnType &funcOutput,
-                ArgTypes &&...funcArgs
+                std::tuple<ArgTypes...> &funcArgs
             ) {
                 TimePoint t1, t2;
 
                 t1 = std::chrono::high_resolution_clock::now();
-                funcOutput = (func)(std::forward<ArgTypes>(funcArgs)...);
+                funcOutput = std::apply(func, funcArgs);
                 t2 = std::chrono::high_resolution_clock::now();
 
                 return std::chrono::duration_cast<TimeUnit>(t2 - t1).count();
@@ -257,12 +256,12 @@ namespace BehTavan::Workflows
             template<typename TimeUnit>
             static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<void, ArgTypes...>::FunctionType &func,
-                ArgTypes &&...funcArgs
+                std::tuple<ArgTypes...> &funcArgs
             ) {
                 TimePoint t1, t2;
 
                 t1 = std::chrono::high_resolution_clock::now();
-                (func)(std::forward<ArgTypes>(funcArgs)...);
+                std::apply(func, funcArgs);
                 t2 = std::chrono::high_resolution_clock::now();
 
                 return std::chrono::duration_cast<TimeUnit>(t2 - t1).count();
