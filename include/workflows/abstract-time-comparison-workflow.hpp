@@ -301,9 +301,14 @@ namespace BehTavan::Workflows
             const size_t funcsSize;
 
             ResultConsoleTable(
-                const FunctionInfoVector<ReturnType, ArgTypes...> &,
-                Orientation = Orientation::COLUMN_BASED
-            );
+                const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo,
+                Orientation orientation = Orientation::COLUMN_BASED
+            ):
+                orientation(orientation),
+                funcsSize(funcsInfo.size())
+            {
+                this->addHeader(funcsInfo);
+            }
 
             /**
              * Adds a record to the table.
@@ -314,8 +319,26 @@ namespace BehTavan::Workflows
              */
             This addRecord(
                 const std::string &inputIdentifier,
-                const std::vector<typename TimeMeasuring::ExecutionTime> &
-            );
+                const std::vector<typename TimeMeasuring::ExecutionTime> &record
+            ) {
+                if (record.size() != this->funcsSize) {
+                    throw std::invalid_argument(
+                        "Record size does not match functions size"
+                    );
+                }
+
+                std::vector<std::string> dataSet(this->funcsSize + 1);
+                dataSet[0] = inputIdentifier;
+                std::copy(record.cbegin(), record.cend(), std::back_inserter(dataSet));
+
+                if (this->orientation == Orientation::ROW_BASED) {
+                    this->addRow(dataSet);
+                } else {
+                    this->addColumn(dataSet);
+                }
+
+                return *this;
+            }
 
         protected:
             // addRecord must be used instead
@@ -325,9 +348,20 @@ namespace BehTavan::Workflows
             /**
              * Fills the table header.
              */
-            constexpr This addHeader(
+            This addHeader(
                 const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo
-            );
+            ) {
+                // TODO: Get the top left cell data from input
+                (*this)[0][0] = "";
+
+                for (size_t i = 0; i < this->funcsSize; i++) {
+                    if (this->orientation == Orientation::ROW_BASE) {
+                        (*this)[i + 1][0] = funcsInfo[i].name;
+                    } else {
+                        (*this)[0][i + 1] = funcsInfo[i].name;
+                    }
+                }
+            }
         };
     };
 }
