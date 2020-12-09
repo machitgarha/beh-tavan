@@ -23,7 +23,7 @@ template<typename ReturnType, typename ...ArgTypes>
 This AbstractTimeComparisonWorkflow<ReturnType, ArgTypes...>
 ::ResultConsoleTable::addRecord(
     const std::string &inputIdentifier,
-    const std::vector<TimeMeasuring::ExecutionTime> &record
+    const std::vector<typename TimeMeasuring::ExecutionTime> &record
 ) {
     if constexpr (record.size() != this->funcsSize) {
         throw std::invalid_argument(
