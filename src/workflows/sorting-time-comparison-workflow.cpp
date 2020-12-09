@@ -7,10 +7,21 @@ using namespace BehTavan::Workflows;
 
 void SortingTimeComparisonWorkflow::run()
 {
+    using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
+
     const size_t n = this->getArraySize();
-    std::vector<Types::UInt64> arr(this->generateRandomArray(n));
+    std::vector<Types::UInt64> arr = this->generateRandomArray(n);
 
     const CurFunctionInfoVector &funcsInfo = this->getFunctionsInfo();
+
+    ResultConsoleTable resultTable(funcsInfo);
+
+    // Before sort
+    resultTable.addRecord(
+        "Time #1"
+        "(Not sorted)",
+        TimeMeasuring::getFuncExecTimeSet<TimeUnit>(funcsInfo, arr)
+    );
 
     // Measure
     // Print
