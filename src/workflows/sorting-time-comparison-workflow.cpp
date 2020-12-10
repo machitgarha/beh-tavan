@@ -52,7 +52,7 @@ bool SortingTimeComparisonWorkflow::TimeMeasuring::doProduceSameResults(
     const ReturnValuePair &outputs,
     const ArgSetValuePair &inputArguments
 ) {
-    std::vector<Types::UInt64>
+    const std::vector<Types::UInt64>
         &v1 = std::get<0>(inputArguments.previous),
         &v2 = std::get<0>(inputArguments.current);
 
