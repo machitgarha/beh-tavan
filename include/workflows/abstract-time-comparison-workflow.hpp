@@ -149,14 +149,13 @@ namespace BehTavan::Workflows
                             outputs.current,
                             arguments.current
                         );
-
-                        if (isFirstFunction) {
-                            outputs.previous = {outputs.current};
-                        }
                     }
 
                     // Ensure all outputs are equal
-                    if (!this->doProduceSameResults(outputs, arguments)) {
+                    if (
+                        !isFirstFunction &&
+                        !this->doProduceSameResults(outputs, arguments)
+                    ) {
                         throw std::runtime_error(
                             "Functions do not produce the same output"
                         );
@@ -164,8 +163,9 @@ namespace BehTavan::Workflows
 
                     isFirstFunction = false;
 
-                    outputs.previous = {outputs.current};
-                    arguments.previous = {arguments.current};
+                    outputs.previous = std::move(outputs.current);
+                    arguments.previous = std::move(arguments.current);
+
                     // Get a fresh arguments list
                     arguments.current = {funcArgs...};
                 }
@@ -182,10 +182,14 @@ namespace BehTavan::Workflows
              * (or class member) with the type of void.
              */
             using NonVoidReturnType = std::conditional_t<
-                std::is_void_v<ReturnType>, bool, ReturnType
+                std::is_void_v<ReturnType>, bool, std::remove_reference_t<ReturnType>
             >;
 
-            using ArgsTuple = std::tuple<ArgTypes...>;
+            /**
+             * We need to remove references, because every ArgsTuple should not have any
+             * references pointing to another ArgsTuple.
+             */
+            using ArgsTuple = std::tuple<std::remove_reference_t<ArgTypes>...>;
 
             /**
              * Container to compare two output values of two same-prototyped functions.
@@ -244,7 +248,7 @@ namespace BehTavan::Workflows
             static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType &func,
                 NonVoidReturnType &funcOutput,
-                std::tuple<ArgTypes...> &funcArgs
+                ArgsTuple &funcArgs
             ) {
                 TimePoint t1, t2;
 
@@ -274,7 +278,7 @@ namespace BehTavan::Workflows
             template<typename TimeUnit>
             static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<void, ArgTypes...>::FunctionType &func,
-                std::tuple<ArgTypes...> &funcArgs
+                ArgsTuple &funcArgs
             ) {
                 TimePoint t1, t2;
 
