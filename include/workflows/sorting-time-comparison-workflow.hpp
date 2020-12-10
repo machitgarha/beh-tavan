@@ -30,6 +30,7 @@ namespace BehTavan::Workflows
                 FUNCTION_INFO(Sorting::countingSort<Types::UInt64>),
                 FUNCTION_INFO(Sorting::heapSort<Types::UInt64>),
                 FUNCTION_INFO(Sorting::insertionSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::mergeSort<Types::UInt64>),
                 FUNCTION_INFO(Sorting::selectionSort<Types::UInt64>),
             };
 

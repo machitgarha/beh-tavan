@@ -6,7 +6,7 @@
 namespace BehTavan::Functions::Sorting
 {
     template<typename T>
-    static void mergeSortRecursive(std::vector<T> &, std::vector<T> &, size_t, size_t);
+    static void mergeSortRecursive(std::vector<T> &, size_t, size_t);
 
     template<typename InputIterator1, typename InputIterator2, typename OutputIterator>
     static void mergeSorted(
@@ -18,28 +18,29 @@ namespace BehTavan::Functions::Sorting
     template<typename T>
     void mergeSort(std::vector<T> &arr)
     {
-        std::vector<T> arrCopy = arr;
-        mergeSortRecursive(arrCopy, arr, 0, arr.size() - 1);
+        mergeSortRecursive(arr, 0, arr.size() - 1);
     }
 
     template<typename T>
-    static void mergeSortRecursive(std::vector<T> &arrCopy, std::vector<T> &arr,
-        size_t from, size_t to)
+    static void mergeSortRecursive(std::vector<T> &arr, size_t from, size_t to)
     {
         // Every array with one element is sorted
-        if (to - from <= 1) {
+        // (to - from < 1) (not to overflow)
+        if (to < from + 1) {
             return;
         }
 
         size_t mid = (from + to) / 2;
 
-        mergeSortRecursive(arrCopy, arr, from, mid);
-        mergeSortRecursive(arrCopy, arr, mid + 1, to);
+        mergeSortRecursive(arr, from, mid);
+        mergeSortRecursive(arr, mid + 1, to);
+
+        std::vector<T> arrCopy = arr;
 
         mergeSorted(
-            arrCopy.cbegin() + from, arrCopy.cbegin() + mid,
-            arrCopy.cbegin() + mid + 1, arrCopy.cbegin() + to,
-            arr.begin(), arr.end()
+            arrCopy.cbegin() + from, arrCopy.cbegin() + mid + 1,
+            arrCopy.cbegin() + mid + 1, arrCopy.cbegin() + to + 1,
+            arr.begin() + from, arr.end()
         );
     }
 
