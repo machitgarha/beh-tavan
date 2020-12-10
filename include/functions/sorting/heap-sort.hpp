@@ -3,8 +3,6 @@
 
 #include "base.hpp"
 
-#include <algorithm>
-
 namespace BehTavan::Functions::Sorting
 {
     template<typename T>
@@ -22,9 +20,9 @@ namespace BehTavan::Functions::Sorting
         buildHeap(arr);
 
         const size_t size = arr.size();
-        for (size_t last = size - 1; last != -1; last--) {
+        for (size_t last = size - 1; last > 0; last--) {
             std::swap(arr[last], arr[0]);
-            siftDown(arr, 0, last);
+            siftDown(arr, 0, last - 1);
         }
     }
 
@@ -41,7 +39,7 @@ namespace BehTavan::Functions::Sorting
             /*
              * No need to check whether j is zero or not, because, in this case, both
              * values are equal and the condition is false then.
-            */
+             */
             while (j > 0 && arr[j] > arr[(j - 1) / 2]) {
                 std::swap(arr[j], arr[(j - 1) / 2]);
                 j = (j - 1) / 2;
@@ -68,11 +66,12 @@ namespace BehTavan::Functions::Sorting
     }
 
     template<typename T>
-    static size_t getNextSwapingIndex(std::vector<T> &arr, size_t curIndex, size_t lastIndex)
+    static size_t getNextSwapingIndex(std::vector<T> &arr, size_t curIndex,
+        size_t lastIndex)
     {
         size_t
-        leftChildIndex = curIndex * 2 + 1,
-        rightChildIndex = leftChildIndex + 1;
+            leftChildIndex = curIndex * 2 + 1,
+            rightChildIndex = leftChildIndex + 1;
 
         // If the element has no left child (and subsequently right child)
         if (leftChildIndex > lastIndex) {
@@ -80,9 +79,9 @@ namespace BehTavan::Functions::Sorting
         }
 
         /*
-        * Now, we know the left child exists, so we find the index of the node with maximum
-        * value based on the existence of the right child.
-        */
+         * Now, we know the left child exists, so we find the index of the node with
+         * maximum value based on the existence of the right child.
+         */
         size_t resultIndex = curIndex;
         if (arr[resultIndex] < arr[leftChildIndex]) {
             resultIndex = leftChildIndex;
