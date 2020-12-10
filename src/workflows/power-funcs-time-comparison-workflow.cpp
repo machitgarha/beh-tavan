@@ -29,19 +29,15 @@ void PowerFuncsTimeComparisonWorkflow::run()
     printLine();
 
     // Fill the table with data
-    try {
-        for (Power::Exponent exponent : exponents) {
-            resultTable.addRecord(
-                std::to_string(exponent),
-                this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(
-                    funcsInfo,
-                    std::move(base),
-                    std::move(exponent)
-                )
-            );
-        }
-    } catch (std::runtime_error &e) {
-        printLine("Runtime error: ", e.what());
+    for (Power::Exponent exponent : exponents) {
+        resultTable.addRecord(
+            std::to_string(exponent),
+            this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(
+                funcsInfo,
+                std::move(base),
+                std::move(exponent)
+            )
+        );
     }
 
     print(resultTable);
