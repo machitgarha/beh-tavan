@@ -3,6 +3,8 @@
 
 #include "base.hpp"
 
+#include <algorithm>
+
 namespace BehTavan::Functions::Sorting
 {
     template<typename T>
@@ -37,12 +39,12 @@ namespace BehTavan::Functions::Sorting
             j = i;
 
             /*
-            * No need to check whether j is zero or not, because, in this case, both values
-            * are equal and the condition is false then.
+             * No need to check whether j is zero or not, because, in this case, both
+             * values are equal and the condition is false then.
             */
-            while (arr[j] > arr[j / 2]) {
-                std::swap(arr[j], arr[j / 2]);
-                j /= 2;
+            while (j > 0 && arr[j] > arr[(j - 1) / 2]) {
+                std::swap(arr[j], arr[(j - 1) / 2]);
+                j = (j - 1) / 2;
             }
         }
     }

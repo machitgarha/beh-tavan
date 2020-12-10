@@ -28,6 +28,7 @@ namespace BehTavan::Workflows
             static const CurFunctionInfoVector funcsInfo = {
                 FUNCTION_INFO(Sorting::bubbleSort<Types::UInt64>),
                 FUNCTION_INFO(Sorting::countingSort<Types::UInt64>),
+                FUNCTION_INFO(Sorting::heapSort<Types::UInt64>),
                 FUNCTION_INFO(Sorting::insertionSort<Types::UInt64>),
                 FUNCTION_INFO(Sorting::selectionSort<Types::UInt64>),
             };
