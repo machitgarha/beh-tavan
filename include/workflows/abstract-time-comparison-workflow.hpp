@@ -15,6 +15,8 @@ namespace BehTavan::Workflows
 {
     /**
      * A workflow for comparing consumed times of same-prototyped functions.
+     *
+     * @todo Add debug capability.
      */
     template<typename ReturnType, typename ...ArgTypes>
     class AbstractTimeComparisonWorkflow
