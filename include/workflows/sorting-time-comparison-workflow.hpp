@@ -5,7 +5,6 @@
 #include "abstract-time-comparison-workflow.hpp"
 
 #include <random>
-#include "types.hpp"
 #include "functions/sorting.hpp"
 
 namespace BehTavan::Workflows
@@ -45,6 +44,16 @@ namespace BehTavan::Workflows
         {
             return this->getNumber("array size", this->defaultArraySize);
         }
+
+        class TimeMeasuring:
+            public AbstractTimeComparisonWorkflow::TimeMeasuring
+        {
+        protected:
+            virtual bool doProduceSameResults(
+                const ReturnValuePair &,
+                const ArgSetValuePair &
+            ) final;
+        } timeMeasuring;
 
     private:
         static const Types::UInt64 randMax = 40000;

@@ -20,7 +20,7 @@ void SortingTimeComparisonWorkflow::run()
     resultTable.addRecord(
         "Time #1"
         "(Not sorted)",
-        TimeMeasuring::getFuncExecTimeSet<TimeUnit>(funcsInfo, arr)
+        this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(funcsInfo, arr)
     );
 
     // Measure
@@ -39,4 +39,15 @@ std::vector<Types::UInt64> SortingTimeComparisonWorkflow::generateRandomArray(si
     }
 
     return result;
+}
+
+bool SortingTimeComparisonWorkflow::TimeMeasuring::doProduceSameResults(
+    const ReturnValuePair &outputs,
+    const ArgSetValuePair &inputArguments
+) {
+    std::vector<Types::UInt64>
+        &v1 = std::get<0>(inputArguments.previous),
+        &v2 = std::get<0>(inputArguments.current);
+
+    return std::equal(v1.cbegin(), v1.cend(), v2.cbegin(), v2.cend());
 }

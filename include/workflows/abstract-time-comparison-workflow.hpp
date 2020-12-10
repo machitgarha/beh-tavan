@@ -243,7 +243,7 @@ namespace BehTavan::Workflows
             template<typename TimeUnit>
             static constexpr inline ExecutionTime getFuncExecTime(
                 const typename FunctionInfo<ReturnType, ArgTypes...>::FunctionType &func,
-                ReturnType &funcOutput,
+                NonVoidReturnType &funcOutput,
                 std::tuple<ArgTypes...> &funcArgs
             ) {
                 TimePoint t1, t2;

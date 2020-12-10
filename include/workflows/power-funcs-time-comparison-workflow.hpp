@@ -56,8 +56,8 @@ namespace BehTavan::Workflows
         {
         protected:
             virtual bool doProduceSameResults(
-                const ReturnValuePair &outputs,
-                const ArgSetValuePair &inputArguments
+                const ReturnValuePair &,
+                const ArgSetValuePair &
             ) final;
         } timeMeasuring;
     };
