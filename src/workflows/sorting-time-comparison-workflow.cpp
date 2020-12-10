@@ -18,13 +18,20 @@ void SortingTimeComparisonWorkflow::run()
 
     // Before sort
     resultTable.addRecord(
-        "Time #1"
+        "Time #1\n"
         "(Not sorted)",
         this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(funcsInfo, arr)
     );
 
-    // Measure
-    // Print
+    Functions::Sorting::heapSort(arr);
+
+    resultTable.addRecord(
+        "Time #2\n"
+        "(Sorted)",
+        this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(funcsInfo, arr)
+    );
+
+    print(resultTable);
 }
 
 std::vector<Types::UInt64> SortingTimeComparisonWorkflow::generateRandomArray(size_t size)
