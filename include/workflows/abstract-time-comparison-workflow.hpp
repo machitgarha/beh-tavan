@@ -5,7 +5,6 @@
 
 #include <chrono>
 
-#include "output.hpp"
 #include "function-info.hpp"
 #include "env.hpp"
 #include "types.hpp"
@@ -350,7 +349,7 @@ namespace BehTavan::Workflows
                 dataSet[0] = inputIdentifier;
 
                 for (size_t i = 0; i < this->funcsSize; i++) {
-                    dataSet[i + 1] = record[i];
+                    dataSet[i + 1] = std::to_string(record[i]);
                 }
 
                 if (this->orientation == Orientation::ROW_BASED) {
