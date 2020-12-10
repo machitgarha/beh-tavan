@@ -3,31 +3,13 @@
 
 #include <vector>
 
-namespace BehTavan::Functions::Sorting
-{
-    template<typename T>
-    void bubbleSort(std::vector<T> &);
-
-    template<typename T>
-    void countingSort(std::vector<T> &);
-
-    template<typename T>
-    void heapSort(std::vector<T> &);
-
-    template<typename T>
-    void insertionSort(std::vector<T> &);
-
-    template<typename T>
-    void mergeSort(std::vector<T> &);
-
-    template<typename T>
-    void quickSort(std::vector<T> &);
-
-    template<typename T>
-    void radixSort(std::vector<T> &);
-
-    template<typename T>
-    void selectionSort(std::vector<T> &);
-}
+#include "sorting/bubble-sort.hpp"
+#include "sorting/counting-sort.hpp"
+#include "sorting/heap-sort.hpp"
+#include "sorting/insertion-sort.hpp"
+#include "sorting/merge-sort.hpp"
+#include "sorting/quick-sort.hpp"
+#include "sorting/radix-sort.hpp"
+#include "sorting/selection-sort.hpp"
 
 #endif // BEH_TAVAN_FUNCTIONS_SORTING_HPP
