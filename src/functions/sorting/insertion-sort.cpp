@@ -10,7 +10,7 @@ void insertionSort(std::vector<T> &arr)
     for (size_t i = 1; i < size; i++) {
         for (size_t j = i - 1; j != -1; j--) {
             if (arr[i] < arr[j]) {
-                swap(arr[j], arr[j + 1]);
+                std::swap(arr[j], arr[j + 1]);
             } else {
                 break;
             }

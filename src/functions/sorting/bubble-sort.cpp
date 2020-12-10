@@ -13,7 +13,7 @@ void Sorting::bubbleSort(std::vector<T> &arr)
 
         for (size_t j = 0; j < n - 1; j++) {
             if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
+                std::swap(arr[j], arr[j + 1]);
                 // At least one swap is enough to make sure the numbers are not sorted
                 sorted = false;
             }

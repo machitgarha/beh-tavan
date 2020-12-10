@@ -18,7 +18,7 @@ void Sorting::heapSort(std::vector<T> &arr)
 
     const size_t size = arr.size();
     for (size_t last = size - 1; last != -1; last--) {
-        swap(arr[last], arr[0]);
+        std::swap(arr[last], arr[0]);
         siftDown(arr);
     }
 }
@@ -38,7 +38,7 @@ static void buildHeap(std::vector<T> &arr)
          * are equal and the condition is false then.
          */
         while (arr[j] > arr[j / 2]) {
-            swap(arr[j], arr[j / 2]);
+            std::swap(arr[j], arr[j / 2]);
             j /= 2;
         }
     }
@@ -57,7 +57,7 @@ static void siftDown(std::vector<T> &arr, size_t curIndex, size_t lastIndex)
             return;
         }
 
-        swap(arr[curIndex], arr[nextSwapingIndex]);
+        std::swap(arr[curIndex], arr[nextSwapingIndex]);
         curIndex = nextSwapingIndex;
     }
 }

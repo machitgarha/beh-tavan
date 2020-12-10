@@ -29,5 +29,5 @@ void Sorting::countingSort(std::vector<T> &arr)
         counts[arr[i]]--;
     }
 
-    swap(arr, result);
+    std::swap(arr, result);
 }
