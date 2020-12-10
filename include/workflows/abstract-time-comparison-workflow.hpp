@@ -4,6 +4,7 @@
 #include "abstract-workflow.hpp"
 
 #include <chrono>
+#include <string>
 
 #include "function-info.hpp"
 #include "env.hpp"
@@ -156,8 +157,11 @@ namespace BehTavan::Workflows
                         !isFirstFunction &&
                         !this->doProduceSameResults(outputs, arguments)
                     ) {
+                        using namespace std::string_literals;
+
                         throw std::runtime_error(
-                            "Functions do not produce the same output"
+                            "Functions "s + funcsInfo[i - 1].name + "() and " +
+                            funcsInfo[i].name + "() do not produce the same results"
                         );
                     }
 
