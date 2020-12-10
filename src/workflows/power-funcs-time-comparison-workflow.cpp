@@ -51,5 +51,5 @@ bool PowerFuncsTimeComparisonWorkflow::TimeMeasuring::doProduceSameResults(
     const ReturnValuePair &outputs,
     const ArgSetValuePair &inputArguments
 ) {
-    return *outputs.current == *outputs.previous;
+    return outputs.current == outputs.previous;
 }

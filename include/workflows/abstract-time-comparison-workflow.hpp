@@ -119,15 +119,11 @@ namespace BehTavan::Workflows
                 /*
                  * It is supposed that function's return value is DefaultConstructible and
                  * CopyConstructible, otherwise things should not work properly.
+                 *
+                 * The values of the following variable is non-sense, because in first loop
+                 * iteration, both will be replaced by other values.
                  */
                 ReturnValuePair outputs;
-                if constexpr (!std::is_void_v<ReturnType>()) {
-                    // Only to reduce call and execution overhead
-                    ReturnType tmpOutput =
-                        (funcsInfo[0].func)(std::forward<ArgTypes...>(funcArgs)...);
-                    outputs.previous = tmpOutput;
-                    outputs.current = tmpOutput;
-                }
 
                 ArgSetValuePair arguments = {
                     {funcArgs...},
@@ -190,6 +186,8 @@ namespace BehTavan::Workflows
                 std::is_void_v<ReturnType>, bool, ReturnType
             >;
 
+            using ArgsTuple = std::tuple<ArgTypes...>;
+
             /**
              * Container to compare two output values of two same-prototyped functions.
              *
@@ -206,8 +204,8 @@ namespace BehTavan::Workflows
              */
             struct ArgSetValuePair
             {
-                std::tuple<ArgTypes...> previous;
-                std::tuple<ArgTypes...> current;
+                ArgsTuple previous;
+                ArgsTuple current;
             };
 
             using TimePoint = std::chrono::high_resolution_clock::time_point;
