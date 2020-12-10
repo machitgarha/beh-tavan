@@ -19,7 +19,7 @@ void Sorting::heapSort(std::vector<T> &arr)
     const size_t size = arr.size();
     for (size_t last = size - 1; last != -1; last--) {
         std::swap(arr[last], arr[0]);
-        siftDown(arr);
+        siftDown(arr, 0, last);
     }
 }
 
