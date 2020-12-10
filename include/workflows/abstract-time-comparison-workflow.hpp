@@ -378,9 +378,9 @@ namespace BehTavan::Workflows
 
                 for (size_t i = 0; i < this->funcsSize; i++) {
                     if (this->orientation == Orientation::ROW_BASED) {
-                        (*this)[i + 1][0] = funcsInfo[i].name;
-                    } else {
                         (*this)[0][i + 1] = funcsInfo[i].name;
+                    } else {
+                        (*this)[i + 1][0] = funcsInfo[i].name;
                     }
                 }
 
