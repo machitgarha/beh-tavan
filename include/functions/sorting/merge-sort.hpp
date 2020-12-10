@@ -6,7 +6,7 @@
 namespace BehTavan::Functions::Sorting
 {
     template<typename T>
-    static void mergeSort(std::vector<T> &, std::vector<T> &, size_t, size_t);
+    static void mergeSortRecursive(std::vector<T> &, std::vector<T> &, size_t, size_t);
 
     template<typename InputIterator1, typename InputIterator2, typename OutputIterator>
     static void mergeSorted(
@@ -19,11 +19,11 @@ namespace BehTavan::Functions::Sorting
     void mergeSort(std::vector<T> &arr)
     {
         std::vector<T> arrCopy = arr;
-        mergeSort(arrCopy, arr, 0, arr.size() - 1);
+        mergeSortRecursive(arrCopy, arr, 0, arr.size() - 1);
     }
 
     template<typename T>
-    static void mergeSort(std::vector<T> &arrCopy, std::vector<T> &arr,
+    static void mergeSortRecursive(std::vector<T> &arrCopy, std::vector<T> &arr,
         size_t from, size_t to)
     {
         // Every array with one element is sorted
@@ -33,8 +33,8 @@ namespace BehTavan::Functions::Sorting
 
         size_t mid = (from + to) / 2;
 
-        mergeSort(arrCopy, arr, from, mid);
-        mergeSort(arrCopy, arr, mid + 1, to);
+        mergeSortRecursive(arrCopy, arr, from, mid);
+        mergeSortRecursive(arrCopy, arr, mid + 1, to);
 
         mergeSorted(
             arrCopy.cbegin() + from, arrCopy.cbegin() + mid,
