@@ -23,7 +23,7 @@ namespace BehTavan::Functions::Sorting
         }
 
         for (size_t i = 1; i < maxElement + 1; i++) {
-            counts[i] = counts[i - 1];
+            counts[i] += counts[i - 1];
         }
 
         std::vector<T> result(size);
