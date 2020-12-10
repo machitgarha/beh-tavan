@@ -5,6 +5,7 @@
 
 #include <chrono>
 
+#include "output.hpp"
 #include "function-info.hpp"
 #include "env.hpp"
 #include "types.hpp"
@@ -82,7 +83,7 @@ namespace BehTavan::Workflows
              * (i.e. via template argument), sorted the same as input function list.
              */
             template<typename TimeUnit>
-            inline ExecutionTimeVector getFuncExecTimeSet(
+            ExecutionTimeVector getFuncExecTimeSet(
                 const FunctionInfoVector<ReturnType, ArgTypes...> &funcsInfo,
                 const ArgTypes &&...funcArgs
             ) {
@@ -114,10 +115,20 @@ namespace BehTavan::Workflows
                  */
                 bool isFirstFunction = true;
 
-                ReturnValuePair outputs = {
-                    nullptr,
-                    nullptr,
-                };
+                // TODO: Move this comment to a better place.
+                /*
+                 * It is supposed that function's return value is DefaultConstructible and
+                 * CopyConstructible, otherwise things should not work properly.
+                 */
+                ReturnValuePair outputs;
+                if constexpr (!std::is_void_v<ReturnType>()) {
+                    // Only to reduce call and execution overhead
+                    ReturnType tmpOutput =
+                        (funcsInfo[0].func)(std::forward<ArgTypes...>(funcArgs)...);
+                    outputs.previous = tmpOutput;
+                    outputs.current = tmpOutput;
+                }
+
                 ArgSetValuePair arguments = {
                     {funcArgs...},
                     {funcArgs...},
@@ -140,12 +151,12 @@ namespace BehTavan::Workflows
                     } else {
                         times[i] = this->getFuncExecTime<TimeUnit>(
                             funcsInfo[i].func,
-                            *outputs.current,
+                            outputs.current,
                             arguments.current
                         );
 
                         if (isFirstFunction) {
-                            *outputs.previous = *outputs.current;
+                            outputs.previous = {outputs.current};
                         }
                     }
 
@@ -158,7 +169,7 @@ namespace BehTavan::Workflows
 
                     isFirstFunction = false;
 
-                    *outputs.previous = *outputs.current;
+                    outputs.previous = {outputs.current};
                     arguments.previous = {arguments.current};
                     // Get a fresh arguments list
                     arguments.current = {funcArgs...};
@@ -168,7 +179,18 @@ namespace BehTavan::Workflows
             }
 
         protected:
-            /*
+            /**
+             * A non-void type created from ReturnType.
+             *
+             * If function's return type is void, then a dummy bool type is used, othersise
+             * the return type. It exists to make sure we do not try to create a variable
+             * (or class member) with the type of void.
+             */
+            using NonVoidReturnType = std::conditional_t<
+                std::is_void_v<ReturnType>, bool, ReturnType
+            >;
+
+            /**
              * Container to compare two output values of two same-prototyped functions.
              *
              * Pointers are used instaed of references/bare-from, because of the
@@ -176,10 +198,10 @@ namespace BehTavan::Workflows
              */
             struct ReturnValuePair
             {
-                ReturnType *previous = nullptr;
-                ReturnType *current = nullptr;
+                NonVoidReturnType previous;
+                NonVoidReturnType current;
             };
-            /*
+            /**
              * Container to compare two input sets of two same-prototyped functions.
              */
             struct ArgSetValuePair
@@ -203,9 +225,8 @@ namespace BehTavan::Workflows
              * possible to write a general checker, and it must be done manually. This
              * is the function to be implemented to perform this operation.
              *
-             * @param outputs The outputs of two functions. If called internally, it is
-             * guarenteed that the pointers live here are valid (i.e. not null), except if
-             * ReturnType is void, which, in this case, both pointers are always null.
+             * @param outputs The outputs of two functions. If functions' return type is
+             * void, then outputs parameter consists of two unspecified dummy booleans.
              */
             virtual constexpr bool doProduceSameResults(
                 const ReturnValuePair &outputs,
