@@ -9,7 +9,6 @@
 #include "sorting/insertion-sort.hpp"
 #include "sorting/merge-sort.hpp"
 #include "sorting/quick-sort.hpp"
-#include "sorting/radix-sort.hpp"
 #include "sorting/selection-sort.hpp"
 
 #endif // BEH_TAVAN_FUNCTIONS_SORTING_HPP
