@@ -10,17 +10,17 @@ namespace BehTavan
      */
     class StandardConsoleTable: public samilton::ConsoleTable
     {
-        public:
-            StandardConsoleTable();
+    public:
+        StandardConsoleTable();
 
-        protected:
-            /**
-             * Get standard table characters structure.
-             *
-             * As the default one may not be supported in all shells and environments,
-             * instead, this function returns more ASCII characters like + and -.
-             */
-            static TableChars getStandardTableChars() noexcept;
+    protected:
+        /**
+         * Get standard table characters structure.
+         *
+         * As the default one may not be supported in all shells and environments,
+         * instead, this function returns more ASCII characters like + and -.
+         */
+        static TableChars getStandardTableChars() noexcept;
     };
 }
 

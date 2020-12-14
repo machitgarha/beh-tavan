@@ -1,7 +1,6 @@
 #include "workflows/power-funcs-time-comparison-workflow.hpp"
 
 using namespace BehTavan::Workflows;
-using namespace BehTavan::TimeMeasuring;
 
 void PowerFuncsTimeComparisonWorkflow::run()
 {
@@ -10,35 +9,43 @@ void PowerFuncsTimeComparisonWorkflow::run()
     printLine("functions, using normal and optimized algorithms, and measures");
     printLine("the time taken for each one, for each exponent. Then, the results");
     printLine("are shown in a simple table.");
-    printNewLine();
+    printLine();
 
     const Power::Base &&base = this->getBase();
-    const Input::Collection<Power::Exponent> &&exponents = this->getExponents();
+    const std::vector<Power::Exponent> &&exponents = this->getExponents();
 
     const CurFunctionInfoVector &funcsInfo = this->getFunctionsInfo();
-    ExecutionResultTable resultTable("Exponents", funcsInfo);
+    ResultConsoleTable resultTable(funcsInfo);
 
     using TimeUnit = TimeMeasuring::TimeUnit::Nanoseconds;
 
     // Print information about the table
-    printVarVal(base);
-    printLine3("Time unit is in ", getPrintableTimeUnit<TimeUnit>(), "s.");
-    printNewLine();
+    printLine("base = ", base);
+    printLine(
+        "Time unit is in ",
+        TimeMeasuring::TimeUnit::getPrintableTimeUnit<TimeUnit>(),
+        "s."
+    );
+    printLine();
 
     // Fill the table with data
-    try {
-        for (Power::Exponent exponent : exponents) {
-            resultTable.addRow(
-                exponent,
-                getFuncExecTimeSet<TimeUnit>(
-                    funcsInfo, std::move(base), std::move(exponent)
-                )
-            );
-        }
-    } catch (std::runtime_error &e) {
-        printLine2("Runtime error: ", e.what());
+    for (Power::Exponent exponent : exponents) {
+        resultTable.addRecord(
+            std::to_string(exponent),
+            this->timeMeasuring.getFuncExecTimeSet<TimeUnit>(
+                funcsInfo,
+                std::move(base),
+                std::move(exponent)
+            )
+        );
     }
 
-    // Print the table
-    std::cout << resultTable;
+    print(resultTable);
+}
+
+bool PowerFuncsTimeComparisonWorkflow::TimeMeasuring::doProduceSameResults(
+    const ReturnValuePair &outputs,
+    const ArgSetValuePair &inputArguments
+) {
+    return outputs.current == outputs.previous;
 }

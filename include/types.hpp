@@ -5,9 +5,11 @@
 
 namespace BehTavan::Types
 {
+    using Int16 = short int;
     using Int32 = long int;
     using Int64 = long long int;
 
+    using UInt16 = unsigned short int;
     using UInt32 = unsigned long int;
     using UInt64 = unsigned long long int;
 }

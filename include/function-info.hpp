@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 
+#include "nameof.hpp"
+
+#define FUNCTION_INFO(a) {a, NAMEOF(a).str()}
+
 namespace BehTavan
 {
     /**
@@ -14,30 +18,30 @@ namespace BehTavan
     template<typename ReturnType, typename ...ArgTypes>
     class FunctionInfo
     {
-        public:
-            using FunctionType = std::function<ReturnType(ArgTypes...)>;
-            using FunctionName = std::string;
+    public:
+        using FunctionType = std::function<ReturnType(ArgTypes...)>;
+        using FunctionName = std::string;
 
-            FunctionInfo(FunctionType f, FunctionName fName):
-                func(f),
-                name(fName)
-            {
-                if (!f) {
-                    throw std::invalid_argument("Function must not be empty");
-                }
-                if (fName.empty()) {
-                    throw std::invalid_argument("Function name must not be empty");
-                }
+        const FunctionType func;
+        const FunctionName name;
+
+        FunctionInfo(FunctionType f, FunctionName fName):
+            func(f),
+            name(fName)
+        {
+            if (!f) {
+                throw std::invalid_argument("Function must not be empty");
             }
-
-            const FunctionType func;
-            const FunctionName name;
+            if (fName.empty()) {
+                throw std::invalid_argument("Function name must not be empty");
+            }
+        }
     };
 
     /**
      * A set of functions information.
      *
-     * There is a trade-off between memory and time benefit of arrays, and ease of  use of
+     * There is a trade-off between memory and time benefit of arrays, and ease of use of
      * vectors. As the overhead of vectors in this case is pretty much negligible, for
      * writing less code and make things simpler, vector is being used.
      */

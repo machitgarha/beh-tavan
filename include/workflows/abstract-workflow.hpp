@@ -11,17 +11,17 @@ namespace BehTavan::Workflows
      */
     class AbstractWorkflow
     {
-        public:
-            /**
-             * Runs the workflow in the specified order.
-             *
-             * There should be no work under constructor, it should only prepare necessary
-             * stuff before running the workflow.
-             *
-             * To keep things simple, implementation of this function should be minimal and
-             * restricted to a set of function calls only. More modular, the better.
-             */
-            virtual void run() = 0;
+    public:
+        /**
+         * Runs the workflow in the specified order.
+         *
+         * There should be no work under constructor, it should only prepare necessary
+         * stuff before running the workflow.
+         *
+         * To keep things simple, implementation of this function should be minimal and
+         * restricted to a set of function calls only. More modular, the better.
+         */
+        virtual void run() = 0;
     };
 }
 

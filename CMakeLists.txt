@@ -17,10 +17,12 @@ add_executable(BehTavan
 
     # Workflows
     ./src/workflows/power-funcs-time-comparison-workflow.cpp
+    ./src/workflows/sorting-time-comparison-workflow.cpp
 )
 
 target_include_directories(BehTavan PUBLIC
     ./include/
     ./lib/console-table/
     ./lib/nameof/include/
+    ./lib/chop/include
 )
