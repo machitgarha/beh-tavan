@@ -1,18 +1,12 @@
 # BehTavan
 
-A very simple, yet easily-hackable program to show how generally we can optimize things, and specifically in this project, power functions.
-
-**Note:** The sole purpose of this program was comparing relative performance of different algorithms, and the output of the power functions are only to assert they produce the same output. As a result, we have not used any library providing big numbers (e.g. GMP), so the results of the functions are wrong for big inputs.
+A simple, yet easily-hackable benchmarking library.
 
 ## Features
 
 ### Hackable, Easily
 
-Add your own power function with your custom implementation. Let the program know about that. Recompile. Now you see it in the results. Yes, as easy as that: You don't need to touch anywhere else!
-
-Maybe want to test other functions? That should require more hacking, but should be easy too.
-
-Want to know more? See [HACKING.md](./docs/HACKING.md).
+See [HACKING.md](./docs/HACKING.md).
 
 ## Build
 
@@ -54,11 +48,7 @@ You should be able to run this project just anywhere: Linux, OS X, Windows or BS
 
 ## Documentation
 
-Although this is not a big project, but a minimal documentation is available. It lives in `docs` directory, [check it out now](./docs/README.md).
-
-### Analysis
-
-Data itself is not useful at all. What makes it useful is analyzing it, isn't it? See [what we understand from the output of the program](./docs/analysis/README.md).
+[See here.](./docs/README.md).
 
 ## License
 
@@ -66,10 +56,10 @@ Licensed under GPLv3. See [LICENSE.md](./LICENSE.md).
 
 ## Miscellaneous
 
-### Project Name?
+### History
 
-Yes. It consists of two words in Persian: "Beh", which means the best, and "Tavan", which means exponentiation.
+Initially, at my university, in data structures course, there was a simple practice to print execution times of two differently-implemented power (i.e. exponentiation) functions for comparison purposes. Version 0.1.0 of BehTavan was born. This is the same reason why I named it BehTavan: A persian phrase meaning "the best power" (in the terms of exponentiation).
 
-### Why at all?
+Moving on, there was another practice to benchmark some common sorting algorithms studied just before. However, the project was not completely inactive since its first release, I have improved it somehow, and it was close to version 0.2.0. So it was a good idea to use the same code.
 
-The result of a practice of my university. Data structures course. That's all of it.
+Now, the word "power" (i.e. "Tavan") is the real power BehTavan gives to you. It is generalized for many uses cases, that is not just limited to exponentiation functions or the like.
