@@ -1,23 +1,14 @@
-project(BehTavan)
+cmake_minimum_required(VERSION 3.9)
 
-cmake_minimum_required(VERSION 3.10)
+project(BehTavan)
 
 # C++ Standards
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
-# Source files
-add_executable(BehTavan
-    ./src/main.cpp
+add_library(BehTavan
     ./src/output.cpp
     ./src/console-table/standard-console-table.cpp
-
-    # Functions
-    ./src/functions/power.cpp
-
-    # Workflows
-    ./src/workflows/power-funcs-time-comparison-workflow.cpp
-    ./src/workflows/sorting-time-comparison-workflow.cpp
 )
 
 target_include_directories(BehTavan PUBLIC
