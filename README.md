@@ -64,4 +64,4 @@ Initially, at my university, in data structures course, there was a simple pract
 
 Moving on, there was another practice to benchmark some common sorting algorithms studied just before. However, the project was not completely inactive since its first release, I have improved it somehow, and it was close to version 0.2.0. So it was a good idea to use the same code.
 
-Now, the word "power" (i.e. "Tavan") is the real power BehTavan gives to you. It is generalized for many uses cases, that is not just limited to exponentiation functions or the like.
+Now, the word "power" (i.e. "Tavan") is the real power BehTavan gives to you. It is generalized for many use cases, that is not just limited to exponentiation functions or the like.
