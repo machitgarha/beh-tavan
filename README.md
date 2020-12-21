@@ -2,8 +2,6 @@
 
 A simple, yet easily-hackable benchmarking library.
 
-**Note:** Although you should consider BehTavan a library, however, it is actually a program, as the `main()` is included.
-
 ## Features
 
 ### Hackable, Easily
